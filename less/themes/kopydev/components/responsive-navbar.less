@@ -1,0 +1,123 @@
+// last updated 10/10/19
+
+@import "../stylers/resp-nav-styler.less";
+
+// call stylers
+.menu-styler;
+
+// styles for toggleable menu hamburger button:: param to position self
+.menu-burger-styler(flex-start);
+.menu-burger-a-styler(flex-start); // optional anchor button [running w/ css, not javascript]
+
+// browser breakpoint to open up out of mobile view
+@nav-inline-breakpoint: @screen-md-min;
+
+// set height to menu navbar
+.menu-height(50px);
+
+// navbar size: full or contained
+@menu-size: full;
+
+// navbar align: left, right, center or evenly
+@menu-align: evenly;
+
+// COLORS & BURGER--------------------------------------------------------------
+// THESE ARE SIMPLY PLACEHOLDERS - USE COLORS THAT MAKE SENSE!
+
+// main-level menu styles
+@menu-bg: @gray;
+@menu-bg-hover: @index-primary;
+@menu-text: contrast(@menu-bg, @white, @black);
+@menu-text-hover: contrast(@menu-bg-hover, @white, @black);
+
+// sub-level menu styles
+@sub-menu-bg: contrast(@menu-bg-hover, darken(@menu-bg-hover, 8%), lighten(@menu-bg-hover, 8%));
+@sub-menu-bg-hover: contrast(@sub-menu-bg, darken(@sub-menu-bg, 8%), lighten(@sub-menu-bg, 8%));
+@sub-menu-text: contrast(@sub-menu-bg, @white, @black);
+@sub-menu-text-hover: contrast(@sub-menu-bg-hover, @white, @black);
+
+// multi sub-level menu styles
+@multi-sub-menu-bg: contrast(@sub-menu-bg-hover, darken(@sub-menu-bg-hover, 8%), lighten(@sub-menu-bg-hover, 8%));
+@multi-sub-menu-bg-hover: contrast(@multi-sub-menu-bg, darken(@multi-sub-menu-bg, 8%), lighten(@multi-sub-menu-bg, 8%));
+@multi-sub-menu-text: contrast(@multi-sub-menu-bg, @white, @black);
+@multi-sub-menu-text-hover: contrast(@multi-sub-menu-bg-hover, @white, @black);
+
+// menu border styling
+@menu-bo: contrast(@menu-bg, darken(@menu-bg, 90%), lighten(@menu-bg, 63%));
+@sub-menu-bo: contrast(@sub-menu-bg, darken(@sub-menu-bg, 90%), lighten(@sub-menu-bg, 63%));
+
+// spacing/sizing for the items across the menu
+@menu-link-padding: 20px;
+
+// hamburger styles
+@menu-burger-bg: transparent;
+@menu-burger-bg-active: transparent;
+@menu-burger-border-width: 1px;
+@menu-burger-color: @index-secondary;
+@menu-burger-color-active: contrast(@menu-burger-color, darken(@menu-burger-color, 20%), lighten(@menu-burger-color, 20%));
+
+@menu-burger-bar-width: 30px;
+@menu-burger-bar-height: 4px;
+@menu-burger-bar-spacing: 4px;
+
+@menu-burger-padding-vert: 10px;
+@menu-burger-padding-horiz: 10px;
+
+// DECORATIONS ----------------------------------------------------------------
+
+// styles navbar top level border height, width, style, color (color can be changed if contrast color doesn't work)
+.menu-border-styler(30px, 1px, solid, contrast(@menu-bg, darken(@menu-bg, 90%), lighten(@menu-bg, 63%)));
+// styles sub-menu level border- width, height, style, color (color can be changed if contrast color doesn't work)
+// !IMPORTANT >> below mixin CANNOT BE COMBINED w/ .horizontal-sub-menu-dropdowns; or .horizontal-menu-border-styler(); mixins
+// .sub-menu-border-styler(100%, 1px, solid, contrast(@sub-menu-bg, darken(@sub-menu-bg, 90%), lighten(@sub-menu-bg, 63%)));
+
+// styles navbar dropdown decoration
+// params: font-awesome icon, font-size (defaults to "smaller"), default color, hover color, position from right
+.menu-dropdown-decoration-styler("\f0d7", 10px, @menu-text, @menu-text-hover, 10px);
+
+// keeps right-most dropdowns from creating horizontal scrollbar by swinging open to the left
+.sub-menu-dropdowns-to-left;
+
+// alternative option to have horizontal sub-menu dropdowns
+// !IMPORTANT >> below 2 .horizontal mixins CANNOT BE COMBINED w/ .sub-menu-border-styler(); mixin
+// .horizontal-sub-menu-dropdowns;
+// horizontal sub-menu level border styles- height, width, style, color (color can be changed if contrast color doesn't work)
+// .horizontal-menu-border-styler(30px, 1px, solid, contrast(@sub-menu-bg, darken(@sub-menu-bg, 90%), lighten(@sub-menu-bg, 63%)));
+
+
+// override default menu navbar styles
+
+.menu-nav {
+	.menu {
+		>li {
+			>a {
+				//navbar headers
+			}
+			&.menu__dropdown {
+				>a {
+					@media (min-width: @nav-inline-breakpoint) {
+
+						&:after {
+
+						}
+					}
+				}
+			}
+		}
+    .sub-menu {
+      li {
+        a {
+          //dropdown items
+        }
+      }
+    }
+	}
+
+	.menu-nav__toggle {
+		.menu-btn { //hamburger
+			&__burger-bar {
+
+			}
+		}
+	}
+}

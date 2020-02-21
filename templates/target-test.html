@@ -1,0 +1,41 @@
+<section class="dst-block">
+[[Snippet.ContentHeader]]
+
+  <div class="dst-container">
+    <!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/:target -->
+
+    <h3>Table of Contents</h3>
+    <ol>
+      <li><a class="someclass" href="#p1">Jump to the first paragraph!</a></li>
+      <li><a class="someclass" href="#p2">Jump to the second paragraph!</a></li>
+      <li><a class="someclass" href="#nowhere">This link goes nowhere, because the target doesn't exist.</a></li>
+    </ol>
+
+    <h3>My Fun Article</h3>
+    <p id="p1">You can target <i>this paragraph</i> using a URL fragment. Click on the link above to try out!</p>
+    <p id="p2">This is <i>another paragraph</i>, also accessible from the links above. Isn't that delightful?</p>
+  </div>
+</section>
+
+<script type="text/javascript">
+  // $('a.someclass').click(function(e)
+  // {
+  //     // Special stuff to do when this link is clicked...
+  //
+  //     // Cancel the default action
+  //     e.preventDefault();
+  // });
+
+  // var hashLinks = document.querySelectorAll("a[href^='#']");
+  var hashLinks = $('a.someclass');
+  [].forEach.call(hashLinks, function (link) {
+    link.addEventListener("click", function (event) {
+      event.preventDefault();
+      history.pushState({}, "", link.href);
+
+      // Update the URL again with the same hash, then go back
+      history.pushState({}, "", link.href);
+      history.back();
+    });
+  });
+</script>

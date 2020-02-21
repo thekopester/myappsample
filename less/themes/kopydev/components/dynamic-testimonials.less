@@ -1,0 +1,292 @@
+.component-testimonials-dynamic {
+  // dynamic testimonial slider option 5
+  #testimonial-widget5 {
+  	@transition-speed: 0.2s; // site wide transition speed :: delete if this variable already exists in variables.less
+
+  	// values can be changed as needed
+  	@testimonials-default-text-color: lighten(@black,33%);
+  	@testimonials-color-primary: @index-primary;
+  	@testimonials-color-secondary: @index-secondary;
+
+  	// .container;
+  	display: block; position: relative;
+  	width: 100%;
+  	padding: 60px 15px;
+  	background-color: @white;
+
+  	@media (min-width: @screen-xl-min) {
+  	  padding-left: 0;
+  	  padding-right: 0;
+  	}
+
+  	#testimonialSlider5 {
+  		// (icon-left, icon-right, font-size, width, height)
+  		.carousel-nav-styler('\f053', '\f054', 25px, 50px, 50px);
+
+  		// (shape -> circle/square/none, color, background color)
+  		.carousel-nav-button-styler(circle, @testimonials-color-primary, @white);
+
+  		// (hover color, hover background color)
+  		.carousel-nav-button-hover-styler(@black, @white);
+
+  		// (width, color, hover-color)
+  		.carousel-nav-border-styler(2px, @testimonials-color-primary, @black);
+
+  		//sets arrow background to 2 colors with specified angle
+  		// (color1, color2, angle)
+  		// .two-tone-nav(@brand-primary, darken(@brand-primary, 30%), -45deg);
+
+  		//nudges arrow icon to be visually centered if needed
+  		//(top, left arrow{left}, right arrow {right})
+  		.carousel-icon-nudge(2px, -2px, -2px);
+
+  		position: relative;
+
+  		@media (min-width: @screen-lg-min) {
+  			.flex-row();
+  			.flex-align-items(flex-start);
+  			.flex-justify-content(center);
+  		}
+
+  		.testimonial-sidebar {
+  			display: block; position: relative;
+  			min-height: 250px;
+  			@media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+  				.flex-column();
+  				.flex-align-items(flex-start);
+  				.flex-justify-content(space-between);
+  				.flex-wrap(wrap);
+  				width: 100%;
+  				padding-left: 30px;
+  			}
+  			@media (min-width: @screen-lg-min) {
+  				width: 400px;
+  				.flex-basis(25%);
+  				right: -45px;
+  			}
+
+  			h2 {
+  				display: block; position: relative;
+  				margin: 0; padding: 0;
+  				line-height: 1;
+  				font-weight: 700;
+  				font-size: 48px;
+  				margin-bottom: 70px;
+  				@media (min-width: @screen-sm-min) { margin-bottom: 30px; }
+  				@media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+  					.flex-basis(75%);
+  				}
+  				@media (min-width: @screen-sm-min) {
+  					font-size: 72px;
+  					max-width: 325px;
+  				}
+  				> span {
+  					display: block; position: relative;
+  					line-height: 0;
+  					margin-bottom: 33px;
+  					@media (min-width: @screen-sm-min) {
+  						margin-bottom: 60px;
+  					}
+  					.fa {
+  						font-size: 24px;
+  						letter-spacing: -7px;
+  						line-height: 1;
+  					}
+  				}
+  				> span + span {
+  					margin-bottom: 0;
+  				}
+  			}
+  			h6 {
+  				display: none; position: relative;
+  				margin: 0; padding: 0;
+  				line-height: 1.5;
+  				font-weight: 400;
+  				font-size: 24px;
+  				max-width: 345px;
+
+  				@media (min-width: @screen-sm-min) {
+  					display: block;
+  					margin-bottom: 60px;
+  				}
+  				@media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+  					.flex-basis(50%);
+  				}
+  				@media all and (-ms-high-contrast:none) {
+  					@media (min-width: @screen-sm-min) and (max-width: @screen-md-max) { top: 100px; }
+  				}
+  			}
+  			.link-nav-wrapper {
+  				display: block; position: relative;
+  				@media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+  					.flex-basis(50%);
+  					position: absolute;
+  					right: 35px; top: 45px;
+  					width: 230px;
+  				}
+  				ul {
+  					.ul-zero-out;
+  					li {
+  						display: block; position: relative;
+  						margin-top: 10px;
+  						a {
+  							.transition(all @transition-speed ease-in-out);
+  							display: block; position: relative;
+  							line-height: 40px; font-weight: 700;
+  							color: @white;
+  							letter-spacing: 0.05em; .border-radius(55px);
+  							padding: 0 20px;
+  							max-width: 225px;
+  							text-transform: uppercase;
+  							background: @testimonials-color-primary;
+  							&:after {
+  								content: "\f138";
+  								display: block; position: absolute;
+  								right: 20px; top: 0; bottom: 0;
+  								margin: auto;
+  								font-family: FontAwesome;
+  								font-size: 17px;
+  							}
+  							&:hover, &:active, &:focus {
+  								color: @testimonials-color-primary;
+  								background: @black;
+  							}
+  						}
+  						&:last-child {
+  							a {
+  								background: @black;
+  							}
+  						}
+  					}
+  				}
+  			}
+  		}
+
+  		.slider-wrapper {
+  			display: none; position: relative;
+  			@media (min-width: @screen-sm-min) {
+  				display: block;
+  			}
+  			&:after {
+  				content: "";
+  				display: block; position: absolute;
+  				left: 0; bottom: 0; top: 160px;
+  				margin: auto;
+  				border-right: 2px solid @black;
+  				@media (min-width: @screen-lg-min) {
+  					top: 260px;
+  				}
+  			}
+  			&:before {
+  				content: "";
+  				display: block; position: absolute;
+  				right: 0; top: 0;
+  				margin: auto;
+  				border-top: 2px solid @black;
+  				right: 0; width: 89px;   top: 0;
+  				@media (min-width: @screen-md-min) {
+  					left: auto; right: 0; top: 0;
+  				}
+  				@media (min-width: @screen-lg-min) {
+  					left: 135px; right: 0; top: 0;
+  					width: auto;
+  				}
+  			}
+  		}
+
+  		.slider__content {
+  			position: relative;
+  			.ul-zero-out;
+  			margin: 0; // space for nav arrows
+  			overflow: hidden;
+  			white-space: nowrap;
+  			@media (min-width: @screen-lg-min) {
+  				.flex-basis(66%);
+  				.flex-basis(66%);
+  				width: 800px;
+  			}
+  			&:after {
+  				content: "";
+  				display: block; position: absolute;
+  				left: 0; right: 0; bottom: 0;
+  				border-bottom: 2px solid @black;
+  			}
+  			&:before {
+  				content: "";
+  				display: block; position: absolute;
+  				right: 0; bottom: 0; top: 0;
+  				margin: auto;
+  				border-left: 2px solid @black;
+  			}
+  		}
+  		.slider__item {
+  			position: relative;
+  			display: inline-block;
+  			vertical-align: top;
+  			height: 100%;
+  			width: 100%; // edit
+  			padding: 0 10px; // edit
+  			overflow: hidden;
+  			white-space: normal;
+
+  			@media (min-width: @screen-sm-min) {
+  				padding: 0 100px 33px 30px;
+  			}
+  			@media (min-width: @screen-lg-min) {
+  				padding: 150px 120px 80px 120px;
+  			}
+
+  			.testimonial-body {
+  				.testimonial_review_wrapper {
+  					h4 {
+  						display: block; position: relative;
+  						margin: 0; padding: 0;
+  						font-size: 24px;
+  						font-weight: 700;
+  						color: @testimonials-color-primary;
+  						margin-bottom: 30px;
+  					}
+  					p {
+  						display: block; position: relative;
+  						margin: 0; padding: 0;
+  						font-size: 16px;
+  						letter-spacing: 0.05em;
+  						line-height: 1.33;
+  						color: @testimonials-default-text-color;
+  						// height: 190px;
+  						// overflow: hidden;
+  						@media (min-width: @screen-lg-min) {
+  							height: 230px;
+  						}
+  					}
+  				}
+  			}
+  		}
+  		.carousel-nav {
+  			display: none; position: absolute;
+  			width: 130px;
+  			top: 100px; right: 120px;
+  			@media (min-width: @screen-sm-min) {
+  				display: block;
+  				top: 0px; right: 120px;
+  			}
+  			@media (min-width: @screen-lg-min) {
+  				top: 100px; right: 120px;
+  			}
+  			@media (min-width: @screen-xl-min) {
+  				right: 120px;
+  			}
+  			.carousel-control {
+  				cursor: pointer;
+
+  				.fa {
+  					.transition(all @transition-speed ease-in-out);
+  					&:after {
+  						.transition(all @transition-speed ease-in-out);
+  					}
+  				}
+  			}
+  		}
+  	}
+  }
+}

@@ -1,0 +1,670 @@
+// CTA BUTTON STYLER
+// last updated 8/15/19
+
+
+// CTAs - Component V1
+.cta-comp-v1-styler() {
+
+   @btn-bg-color: #1f1f1f;
+   @btn-font-family: @font-family-sans-serif; // font-family for main bold text
+   @btn-font-family-secondary: @font-family-base; // font-family for 2nd line text
+   @btn-font-color: contrast(@btn-bg-color, @black, @white); // font color for main bold text
+   @btn-font-color-secondary: contrast(@btn-bg-color, @black, @white); // font color for 2nd line text
+   @btn-font-color-hover: @index-primary; // hover font color for main bold text
+   @btn-font-color-secondary-hover: @index-primary; // hover font color for 2nd line text
+   @btn-bdr-radius-active: true; // button border radius active (true or false)
+   @btn-bdr-radius: 5px; // button border radius
+   @btn-bdr-width: 2px; // button border width
+   @btn-primary-color: @index-primary; // primary color of the bottom - used for bottom border line graphic
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+   >ul {
+      //# of buttons total
+      @cta-count: 6;
+
+      //transition (in, out, curve)
+      // .cta-transition(0.2s, 0.2s, ease-in-out);
+
+      //horizontal space between each button, per view (inherits from view before)
+      // set up button spacing, based on button count
+      & when (@cta-count = 2) {
+         .cta-space-between(0px, 0px, 30px);
+      }
+      & when (@cta-count = 3) {
+         .cta-space-between(0px, 0px, 15px);
+      }
+      & when (@cta-count = 4) {
+         .cta-space-between(0px, 0px, 12px);
+      }
+      & when (@cta-count = 5) {
+         .cta-space-between(0px, 0px, 5px);
+      }
+      & when (@cta-count = 6) {
+         .cta-space-between(0px, 0px, 6px);
+      }
+
+      >li {
+         //buttons as columns, per view (inherits from view before)
+         // set up button columns, based on button count
+         .flex-col-base;
+         & when (@cta-count =< 5) {
+            .flex-ctas-make-columns(12, 12, 12/@cta-count);
+         }
+         & when (@cta-count = 6) {
+            .flex-ctas-make-columns(12, 12, 6, 12/@cta-count);
+
+            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+              &:nth-of-type(n+3) {
+                margin-top: 10px;
+              }
+            }
+         }
+         @media (max-width: @screen-sm-max) {
+           &:nth-of-type(n+2) {
+             margin-top: 10px;
+           }
+         }
+
+         //aspect ratio of buttons. if do not use, set height on this element instead
+         // .calculate-aspect-ratio( percentage(2/3) );
+         height: 82px;
+         @media (min-width: @screen-sm-min) { height: 120px; }
+
+         > a {
+            background-color: @btn-bg-color;
+            border: solid @btn-bdr-width lighten(@btn-bg-color, 63%);
+            & when (@btn-bdr-radius-active = true) {
+               .border-radius(@btn-bdr-radius);
+            }
+
+            &:before {
+              content: "";
+              .transition(all @transition-speed ease-in-out);
+              display: block;
+              position: absolute;
+              bottom: 0;
+              left: 0; right: 0;
+              height: 50%;
+              background-repeat: repeat-x;
+              background-image: -webkit-gradient(linear, left top, left bottom, from(fade(lighten(@btn-bg-color, 63%),30%)), to(fade(lighten(@btn-bg-color, 63%),0%)));
+              background-image: -webkit-linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+              background-image: -moz-linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+              background-image: -ms-linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+              background-image: -o-linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+              background-image: linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+              & when (@btn-bdr-radius-active = true) {
+                 .border-bottom-radius(@btn-bdr-radius/2);
+              }
+            }
+            &:after {
+              content: "";
+              .transition(all @transition-speed ease-in-out);
+              display: block;
+              position: absolute;
+              bottom: -@btn-bdr-width;
+              left: 0; right: 0;
+              height: 0;
+              width: 65px;
+              margin: 0 auto;
+              border-top: solid (@btn-bdr-width*2) @btn-primary-color;
+            }
+            >div {
+              .flex-column;
+              // text alignment
+              .flex-justify-content(center);
+              .flex-align-items(center);
+
+               >* {
+                 font-family: @btn-font-family;
+               }
+               h3 {
+                .transition(all @transition-speed ease-in-out);
+                font-size: 16px;
+                font-weight: bold;
+                color: @btn-font-color;
+                text-align: center;
+                text-shadow: 2px 2px 0 @btn-bg-color;
+                 @media (min-width: @screen-sm-min) {
+                   font-size: 28px;
+                 }
+                 // set up font size, based on button count
+                 & when (@cta-count = 2) {
+                   @media (min-width: @screen-md-min) { font-size: 28px; }
+                 }
+                 & when (@cta-count = 3) {
+                   @media (min-width: @screen-md-min) { font-size: 24px; }
+                 }
+                 & when (@cta-count = 4) {
+                   @media (min-width: @screen-md-min) { font-size: 22px; }
+                 }
+                 & when (@cta-count = 5) {
+                   @media (min-width: @screen-md-min) { font-size: 18px; }
+                 }
+                 & when (@cta-count = 6) {
+                   @media (min-width: @screen-md-min) { font-size: 18px; }
+                 }
+               }
+               h4 {
+                 .transition(all @transition-speed ease-in-out);
+                 font-family: @btn-font-family-secondary;
+                 font-size: 16px;
+                 color: @btn-font-color-secondary;
+               }
+               p {
+                 .transition(all @transition-speed ease-in-out);
+                 font-family: @btn-font-family-secondary;
+                 font-size: @font-size-base;
+                 color: @btn-font-color-secondary;
+               }
+            }
+
+            &:hover, &:active, &:focus {
+               &:before {
+                  height: 100%;
+               }
+               &:after {
+                 width: 80px;
+               }
+               //text
+               > div {
+
+                  h3 { color: @btn-font-color-hover; }
+                  h4 { color: @btn-font-color-secondary-hover; }
+                  p { color: @btn-font-color-secondary-hover; }
+               }
+            }
+         }
+      }
+   }
+}
+
+// CTAs - Component V2
+.cta-comp-v2-styler() {
+
+    @btn-bg-color: #1f1f1f; // button background color
+    @btn-font-family: @font-family-sans-serif; // font-family for main bold text
+    @btn-font-family-secondary: @font-family-base; // font-family for 2nd line text
+    @btn-font-color: contrast(@btn-bg-color, @black, @white); // font color for main bold text
+    @btn-font-color-secondary: @index-primary; // font color for 2nd line text
+    @btn-font-color-hover: @index-primary; // hover font color for main bold text
+    @btn-font-color-secondary-hover: contrast(@btn-bg-color, @black, @white); // hover font color for 2nd line text
+    @btn-bdr-radius-active: true; // button border radius active (true or false)
+    @btn-bdr-radius: 4px; // button border radius
+    @btn-bdr-width: 0px; // button border width
+    @btn-primary-color: @index-primary; // primary color of the bottom - used for inner button border color
+    @btn-hover-state: hover-v2; // button hover state, options: (default, hover-v1, hover-v2, hover-v3)
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+   >ul {
+      //# of buttons total
+      @cta-count: 6;
+
+      //transition (in, out, curve)
+      // .cta-transition(0.2s, 0.2s, ease-in-out);
+
+      //horizontal space between each button, per view (inherits from view before)
+      // set up button spacing, based on button count
+      & when (@cta-count = 2) {
+         .cta-space-between(0px, 0px, 4px);
+      }
+      & when (@cta-count = 3) {
+         .cta-space-between(0px, 0px, 3px);
+      }
+      & when (@cta-count = 4) {
+         .cta-space-between(0px, 0px, 4px);
+      }
+      & when (@cta-count = 5) {
+         .cta-space-between(0px, 0px, 2px);
+      }
+      & when (@cta-count = 6) {
+         .cta-space-between(0px, 0px, 2px);
+      }
+
+      >li {
+         //buttons as columns, per view (inherits from view before)
+         // set up button columns, based on button count
+         .flex-col-base;
+         & when (@cta-count =< 5) {
+            .flex-ctas-make-columns(12, 12, 12/@cta-count);
+         }
+         & when (@cta-count = 6) {
+            .flex-ctas-make-columns(12, 12, 6, 12/@cta-count);
+
+            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+              &:nth-of-type(n+3) {
+                margin-top: 2px;
+              }
+            }
+         }
+         @media (max-width: @screen-sm-max) {
+           &:nth-of-type(n+2) {
+             margin-top: 2px;
+           }
+         }
+
+         //aspect ratio of buttons. if do not use, set height on this element instead
+         // .calculate-aspect-ratio( percentage(2/3) );
+         height: 100px;
+         @media (min-width: @screen-md-min) { height: 150px; }
+
+         > a {
+            background-color: @btn-bg-color;
+            border: solid @btn-bdr-width contrast(@btn-bg-color, darken(@btn-bg-color, 90%), lighten(@btn-bg-color, 63%));
+            overflow: hidden;
+            & when (@btn-bdr-radius-active = true) {
+               .border-radius(@btn-bdr-radius);
+            }
+
+            &:before {
+              content: "";
+              .transition(all @transition-speed ease-in-out);
+              display: block;
+              position: absolute;
+              top: 0; bottom: 0;
+              left: 0; right: 0;
+              background: -webkit-linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+              background: -moz-linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+              background: -ms-linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+              background: -o-linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+              background: linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+              & when (@btn-bdr-radius-active = true) {
+                 .border-radius(@btn-bdr-radius);
+              }
+
+              // activate v1 button hover state
+              & when (@btn-hover-state = hover-v1) {
+                @media (min-width: @screen-lg-min) {
+                  top: -50%; bottom: auto;
+                  left: -50%; right: auto;
+                  width: 200%; height: 200%;
+                }
+              }
+            }
+            >div {
+              .flex-column;
+              // text alignment
+              .flex-justify-content(center);
+              .flex-align-items(center);
+
+               @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                 .flex-direction(row);
+                 .flex-justify-content(space-between);
+               }
+               @media (min-width: @screen-md-min) {
+                 .flex-justify-content(flex-end);
+               }
+
+               >* {
+                 font-family: @btn-font-family;
+               }
+               h3 {
+                 .transition(all @transition-speed ease-in-out);
+                 font-size: 16px;
+                 font-weight: bold;
+                 color: @btn-font-color;
+                 text-align: center;
+                 text-transform: uppercase;
+                 margin-bottom: 8px;
+                 @media (min-width: @screen-sm-min) {
+                   font-size: 28px;
+                 }
+                 @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                   margin-bottom: 0px;
+                   margin-left: 50px;
+                 }
+                 @media (min-width: @screen-md-min) {
+                   margin-bottom: 15px;
+                 }
+                 // set up font size, based on button count
+                 & when (@cta-count = 2) {
+                   @media (min-width: @screen-md-min) { font-size: 30px; }
+                 }
+                 & when (@cta-count = 3) {
+                   @media (min-width: @screen-md-min) { font-size: 24px; }
+                 }
+                 & when (@cta-count = 4) {
+                   @media (min-width: @screen-md-min) { font-size: 20px; }
+                   @media (min-width: @screen-xl-min) { font-size: 24px; }
+                 }
+                 & when (@cta-count >= 5) {
+                   @media (min-width: @screen-md-min) { font-size: 30px; }
+                   @media (min-width: @screen-lg-min) { font-size: 16px; }
+                   @media (min-width: @screen-xl-min) { font-size: 20px; }
+                 }
+               }
+               >span {
+                  .transition(all @transition-speed ease-in-out);
+                  width: 138px;
+                  display: inline-block;
+                  font-family: @btn-font-family-secondary;
+                  color: @btn-font-color-secondary;
+                  font-size: 14px;
+                  letter-spacing: 1px;
+                  line-height: 30px;
+                  text-align: center;
+                  text-transform: uppercase;
+                  border: solid 1px @btn-primary-color;
+                  .border-radius(30px);
+
+                  // activate v2 button hover state
+                  & when (@btn-hover-state = hover-v2) {
+                    position: relative;
+                    border: none;
+                    &:before {
+                      .transition(all @transition-speed ease-in-out);
+                      content: "";
+                      position: absolute;
+                      z-index: -1;
+                      background: trasparent;
+                      top: 0;
+                      left: 0;
+                      right: 0;
+                      bottom: 0;
+                      border: solid 1px @btn-primary-color;
+                      .border-radius(30px);
+                    }
+                  }
+
+                  // activate v3 button hover state
+                  & when (@btn-hover-state = hover-v3) {
+                    position: relative;
+
+                    &:before {
+                      .transition(all 0.15s ease-in-out);
+                      content: "";
+                      position: absolute;
+                      background: @btn-primary-color;
+                      z-index: -1;
+                      top: 0;
+                      left: 0;
+                      right: 0;
+                      bottom: 0;
+                      opacity: 0;
+                      .border-radius(30px);
+                    }
+                  }
+                  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                    margin-bottom: 0px;
+                    margin-right: 50px;
+                  }
+                  @media (min-width: @screen-md-min) {
+                    margin-bottom: 25px;
+                  }
+               }
+            }
+
+            &:hover, &:active, &:focus {
+               //background image
+               &:before {
+                 & when (@btn-hover-state = hover-v1) { // activate v1 button hover state
+                   @media (min-width: @screen-lg-min) {
+                     -ms-transform: rotate(-45deg);
+                     -webkit-transform: rotate(-45deg);
+                     transform: rotate(-45deg);
+                   }
+                 }
+               }
+               //text
+               > div {
+                  h3 {
+                    color: @btn-font-color-hover;
+
+                    & when (@btn-hover-state = hover-v1) { // activate v1 button hover state
+                      @media (min-width: @screen-lg-min) {
+                        color: @btn-font-color;
+                      }
+                    }
+                  }
+                  >span {
+                    color: @btn-font-color-secondary-hover;
+
+                    & when (@btn-hover-state = hover-v2) {  // activate v2 button hover state
+                      color: contrast(@btn-primary-color, @black, @white);
+
+                      &:before {
+                        background: @btn-primary-color;
+                			}
+                    }
+                    & when (@btn-hover-state = hover-v3) {  // activate v3 button hover state
+                      color: contrast(@btn-primary-color, @black, @white);
+
+                      &:before {
+                        top: 5px;
+                        left: 5px;
+                        right: 5px;
+                        bottom: 5px;
+                        opacity: 1;
+                      }
+                    }
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+
+// CTAs - Component V3
+.cta-comp-v3-styler() {
+
+    @btn-bg-color: #023459; // #1f1f1f #023459
+    @btn-font-family: @font-family-base; // font-family for main bold text
+    @btn-font-family-secondary: @font-family-base; // font-family for 2nd line text
+    @btn-font-color: contrast(@btn-bg-color, @black, @white); // font color for main bold text
+    @btn-font-color-secondary: contrast(@btn-bg-color, @black, @white); // font color for 2nd line text
+    @btn-font-color-hover: @index-primary; // hover font color for main bold text
+    @btn-font-color-secondary-hover: @index-primary; // hover font color for 2nd line text
+    @btn-bdr-radius-active: false; // button border radius active (true or false)
+    @btn-bdr-radius: 0px; // button border radius
+    @btn-bdr-width: 0px; // button border width
+    @btn-plus-symbol-color: @index-primary; // bg color for the "+" symbol character
+    @btn-bg-img-path: '/images/ds-ctas-btn-bubble-bg.png'; // button bg image path
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    >ul {
+      //# of buttons total
+      @cta-count: 6;
+
+      //horizontal space between each button, per view (inherits from view before)
+      // set up button spacing, based on button count
+      & when (@cta-count = 2) {
+         .cta-space-between(0px, 0px, 6px);
+      }
+      & when (@cta-count = 3) {
+         .cta-space-between(0px, 0px, 6px);
+      }
+      & when (@cta-count = 4) {
+         .cta-space-between(0px, 0px, 4px);
+      }
+      & when (@cta-count = 5) {
+         .cta-space-between(0px, 0px, 5px);
+      }
+      & when (@cta-count = 6) {
+         .cta-space-between(0px, 0px, 6px);
+      }
+
+      >li {
+         //buttons as columns, per view (inherits from view before)
+         // set up button columns, based on button count
+         .flex-col-base;
+         & when (@cta-count =< 4) {
+            .flex-ctas-make-columns(12, 12, 12/@cta-count);
+         }
+         & when (@cta-count >= 5) {
+            .flex-ctas-make-columns(12, 12, 6, 12/@cta-count);
+
+            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+              &:nth-of-type(n+3) {
+                margin-top: 6px;
+              }
+            }
+         }
+         @media (max-width: @screen-sm-max) {
+           &:nth-of-type(n+2) {
+             margin-top: 6px;
+           }
+         }
+
+         //aspect ratio of buttons. if do not use, set height on this element instead
+         // .calculate-aspect-ratio( percentage(2/3) );
+         height: 82px;
+         @media (min-width: @screen-sm-min) { height: 150px; }
+         @media (min-width: @screen-md-min) { height: 240px; }
+
+         > a {
+            background-color: @btn-bg-color;
+            border: solid @btn-bdr-width contrast(@btn-bg-color, darken(@btn-bg-color, 90%), lighten(@btn-bg-color, 63%));
+            & when (@btn-bdr-radius-active = true) {
+               .border-radius(@btn-bdr-radius);
+            }
+
+            &:before {
+              content: "";
+              display: block;
+              position: absolute;
+              top: 0; bottom: 0;
+              left: 0; right: 0;
+              background-image: url(@btn-bg-img-path);
+              background-repeat: no-repeat;
+              background-position: right top;
+              & when (@btn-bdr-radius-active = true) {
+                 .border-radius(@btn-bdr-radius);
+              }
+            }
+            &:after {
+              content: "";
+              display: block;
+              position: absolute;
+              top: 0; bottom: 0;
+              left: 0; right: 0;
+
+              background: -webkit-linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+              background: -moz-linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+              background: -ms-linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+              background: -o-linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+              background: linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+
+              & when (@btn-bdr-radius-active = true) {
+                 .border-radius(@btn-bdr-radius);
+              }
+            }
+            >div {
+                .flex-column;
+                // text alignment
+                .flex-justify-content(flex-end);
+                .flex-align-items(flex-start);
+                position: relative;
+                padding-left: 30px;
+                padding-bottom: 30px;
+
+               &:after {
+                 content: "\002B";
+                 .transition(all @transition-speed ease-in-out);
+                 display: block;
+                 position: absolute;
+                 bottom: 30px;
+                 right: 30px;
+                 width: 11px; height: 11px;
+                 line-height: 11px;
+                 font-family: 'FontAwesome';
+                 font-size: 11px;
+                 color: contrast(@btn-plus-symbol-color, @white, @black);
+                 text-align: center;
+                 background-color: @btn-plus-symbol-color;
+                 .border-radius(2px);
+
+                  & when (@cta-count > 5) {
+                    @media (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
+                      bottom: 14px;
+                    }
+                  }
+               }
+               @media (max-width: @screen-xs-max) {
+                  padding-bottom: 6px;
+               }
+               @media (max-width: @screen-sm-max) {
+                 &:after {
+                   width: 16px; height: 16px;
+                   line-height: 16px;
+                   font-size: 16px;
+                   font-weight: bold;
+                   .border-radius(3px);
+                 }
+               }
+               @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                 padding-left: 50px;
+               }
+
+               >* {
+                 font-family: @btn-font-family;
+               }
+               h3 {
+                 .transition(all @transition-speed ease-in-out);
+                 font-size: 18px;
+                 font-weight: bold;
+                 color: @btn-font-color;
+                 line-height: 1;
+                 text-transform: uppercase;
+                 margin-bottom: 10px;
+                 >span {
+                   display: block;
+                   @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                     display: inline;
+                   }
+                 }
+                 @media (min-width: @screen-sm-min) {
+                   font-size: 28px;
+                 }
+                 // set up font size, based on button count
+                 & when (@cta-count = 2) {
+                   @media (min-width: @screen-md-min) { font-size: 42px; }
+                 }
+                 & when (@cta-count = 3) {
+                   @media (min-width: @screen-md-min) { font-size: 30px; }
+                 }
+                 & when (@cta-count = 4) {
+                   @media (min-width: @screen-md-min) { font-size: 28px; }
+                 }
+                 & when (@cta-count = 5) {
+                   @media (min-width: @screen-md-min) { font-size: 28px; }
+                   @media (min-width: @screen-lg-min) { font-size: 24px; }
+                   @media (min-width: @screen-xl-min) { font-size: 32px; }
+                 }
+                 & when (@cta-count = 6) {
+                   @media (min-width: @screen-md-min) { font-size: 30px; }
+                   @media (min-width: @screen-lg-min) { font-size: 22px; }
+                   @media (min-width: @screen-xl-min) { font-size: 30px; }
+                 }
+               }
+               >span {
+                  .hidden-xs;
+                  .transition(all @transition-speed ease-in-out);
+                  display: inline-block;
+                  font-family: @btn-font-family-secondary;
+                  font-size: 14px;
+                  letter-spacing: 1px;
+                  color: @btn-font-color-secondary;
+               }
+            }
+
+            &:hover, &:active, &:focus {
+               //text
+               >div {
+                  &:after {
+                    color: contrast(@white, @white, @black);
+                    background-color: @white;
+                  }
+                  h3 { color: @btn-font-color-hover; }
+                  >span { color: @btn-font-color-secondary-hover; }
+               }
+            }
+         }
+      }
+    }
+}

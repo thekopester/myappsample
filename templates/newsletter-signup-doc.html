@@ -1,0 +1,134 @@
+<div class="dst-block">
+  [[Snippet.ContentHeader]]
+
+  <div class="dst-content">
+    <section class="internal-anchor" id="requirements">
+      <h4>BAREBONE REQUIREMENTS</h4>
+      <ul class="list-instructions">
+        <li>Script to include. If it's not already included, paste the following script preferably in stdHeaderStart.inc file, rather than footer.asp. This is encase needed to pull other forms elsewhere on the site:</li>
+        <script src="https://gist.github.com/dsfed/4217947beceac6afefedd38424998e3b.js"></script>
+        <li class="no-list-style">
+          <ul class="list-type-circle">
+            <li>This script allows global forms to be imported into index, footer or other content pages!</li>
+          </ul>
+        </li>
+        <li>HTML markup used to pull in the xnewsletter sign up form, paste it into your code:</li>
+        <pre><code class="code-block">    &lt;div data-form="/join-our-mailing-list--xt-xnewsletter"&gt;&lt;/div&gt;</code></pre>
+        <li>Add an id or class attribute identifier to help target this xnewsletter sign up form, for styling and for targeting with custom scripts. Example:</li>
+        <pre><code class="code-block">    &lt;div id="xtNewsletterWrap" data-form="/join-our-mailing-list--xt-xnewsletter"&gt;&lt;/div&gt;</code></pre>
+        <li>Test to see that the form is being pulled into the area where you're needing to display it.</li>
+        <li>Add style to footer.less file (if this form is in the footer), to hide this form by default:</li>
+        <pre><code class="code-block">    #xtNewsletterWrap {
+      display: none;
+    }</code></pre>
+        <li>ASP / Javascript markup to be used:</li>
+        <li class="no-list-style">
+          <h5>If Newsletter sign up form is to display on the index.</h5>
+          <ul class="list-type-circle">
+            <li>This script to be added towards the bottom of the index, above the closing body tag (&lt;/body&gt;)</li>
+            <pre><code class="code-block">    &lt;!-- custom script for Quick E-Newsletter sign up form on index --&gt;
+    &lt;script&gt;
+      $(window).load(function() {
+
+        // remove h1 from "E-Newsletter sign up" form
+        $('#xtNewsletterWrap .form-header h1').detach();
+
+        // show Quick E-Newsletter sign up form after window loads
+        $('#xtNewsletterWrap').show();
+
+      });
+    &lt;/script&gt;</code></pre>
+          </ul>
+          <h5>If Newsletter sign up form is to display in the footer.</h5>
+          <ul class="list-type-circle">
+            <li>ASP / Javascript markup to go in footer.asp. Used to show the xnewsletter sign up form in the footer, on all pages except for on the xnewsletter lead form page. Having this quick sign up form on the same page as the xnewsletter form, conflicts w/ it's functionality. It also doesn't make sense to have it on the same page as the actual xnewsletter sign up content page:</li>
+            <pre><code class="code-block">    &lt;% if not lcase(strPage)="xnewsletter" then %&gt;
+    &lt;!-- asp :: if not xnewsletter page, show quick xnewsletter sign up form on window load --&gt;
+
+    &lt;!-- custom script for Quick E-Newsletter sign up form in footer --&gt;
+    &lt;script&gt;
+    $(window).load(function() {
+
+      // remove h1 from "E-Newsletter sign up" form in footer
+      $('#xtNewsletterWrap .form-header h1').detach();
+
+      // show Quick E-Newsletter sign up form after window loads
+      $('#xtNewsletterWrap').show();
+
+    });
+    &lt;/script&gt;
+
+    &lt;% else %&gt; &lt;!-- asp :: else if on xnewsletter page, remove quick xnewsletter sign up form --&gt;
+
+    &lt;script&gt;
+      $('#xtNewsletterWrap').remove();
+    &lt;/script&gt;
+
+    &lt;!-- end asp if statement for quick xnewsletter sign up form --&gt;
+    &lt;% end if %&gt;</code></pre>
+          </ul>
+        </li>
+      </ul>
+    </section>
+    <section class="internal-anchor" id="additional">
+      <h4>ADDITIONAL/OPTIONAL</h4>
+
+      <ul class="list-instructions">
+        <li>Pending the design/layout of this Quick Newsletter Signup form, add styles/script as needed to have this form match the designers mockup.</li>
+        <li>Form fields to include:</li>
+        <li class="no-list-style">
+          <ul class="list-type-circle">
+            <li>First Name (optional)</li>
+            <li>Last Name (optional)</li>
+            <li>Email (required)</li>
+            <li>Submit Button (required)</li>
+          </ul>
+        </li>
+        <li>By default, all 3 fields (First Name, Last Name, & Email) are set to be required in xnewsletter. For any fields that the mockup doesn't call for, validation will need to be turned off for these fields.</li>
+        <li>To update the validation for this xnewsletter signup form, follow these steps:</li>
+        <li class="no-list-style">
+          <ol>
+            <li>) In the admin panel, navigate to DSAdmin &gt; Manage Snippets</li>
+            <li>) For the 'Select Type' dropdown, choose "JSON-Snippet"</li>
+            <li>) For the 'Select Page Content' dropdown, check to see if the [xnewsletter|jsonvalidation|] snippet exists but if not, create this snippet</li>
+            <li>) To create this snippet, for Page Name, enter "xnewsletter"</li>
+            <li>) For Content Name, enter "jsonvalidation". Then hit the "new" button.</li>
+            <li>) In the 'Select Page Content' dropdown, navigate to the [xnewsletter|jsonvalidation|] snippet and paste in the below markup for validation and remove requirement for fields that aren't used. Save and test validation.</li>
+          </ol>
+        </li>
+        <pre><code class="code-block">    {
+      "rules": {
+        "fname": "required",
+        "lname": "required",
+        "email": {
+          "required": true,
+          "email": true
+        }
+      },
+      "messages": {
+        "fname": "Please enter your first name",
+        "lname": "Please enter your last name",
+        "email": "Please enter a valid email address"
+      }
+    }</code></pre>
+        <li>Next comes styling of the form. This can be done to your preference, as there is no wrong or right way. Styling may also vary depending on the design of this signup form, as the designers will come up w/ a variation of layouts, of this form. Hiding of form elements and fields, that the mockup doesn't call for, in this quick signup form can be done either with less or JavaScript. Preferably with less, w/ exception of hiding the h1 header, this should be removed w/ Javascript, which is already included in the script above. If hiding elements with JavaScript, write your markup w/in the same script that we created above, whether in the index.asp or footer.asp file. Hiding form-header elements, it's crucial that you <b>DO NOT</b> hide the .form-header container itself but rather individual elements w/in it. This is because the "Thank You" message displays from w/in this container, after the form has been submitted. Styling these elements is also important.</li>
+        <li>Optional Javascript markup, to be added to the script that we created above. These are for changing labels, placeholder text, or removing fields.</li>
+        <pre><code class="code-block">    $('#xtNewsletterWrap #formFirstName').detach(); // optional - remove "First Name" field
+    $('#xtNewsletterWrap #formLastName').detach(); // optional - remove "Last Name" field
+    $('#xtNewsletterWrap #btnSubmit').text("Sign Me Up"); // optional - change button label
+    $('#xtNewsletterWrap #formEmail input').attr("placeholder", "Enter email address"); // optional - change email placeholder text</code></pre>
+        <li>When all is done and completed, test the form to make sure it is functioning correctly!</li>
+      </ul>
+    </section>
+    <section class="internal-anchor" id="examples">
+      <h4>Working examples of "Quick" Newsletter signup form:</h4>
+      <ul>
+        <li>Only email address field (form in the footer) <a href="https://kopydev.clients.dealerspike.net/" target="_blank">https://kopydev.clients.dealerspike.net/</a></li>
+        <li>Only email address field (form in the footer) <a href="https://riggsoutdoor.clients.dealerspike.net/" target="_blank">https://riggsoutdoor.clients.dealerspike.net/</a></li>
+        <li>Only email address field (form in the footer) <a href="http://www.oakborotractorgroup.com/" target="_blank">http://www.oakborotractorgroup.com/</a></li>
+        <li>First Name and Email address fields (form in the footer) <a href="https://motorichmond.clients.dealerspike.net/" target="_blank">https://motorichmond.clients.dealerspike.net/</a></li>
+        <li>Only email address field (form in index) <a href="https://www.deltaridgeimplement.com/" target="_blank">https://www.deltaridgeimplement.com/</a></li>
+      </ul>
+    </section>
+  </div>
+</div>

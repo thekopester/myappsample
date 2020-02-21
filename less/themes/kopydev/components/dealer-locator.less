@@ -1,0 +1,640 @@
+.dealer-locator {
+
+	// variables
+
+	// main color used
+	@dealer-locator-primary: @index-primary;
+	// font sizes
+	@base-font-size: 16px;
+	@loading-fa-font-size: 50px;
+
+	// light theme - comment out if using dark theme
+	// @locator-theme-main: @black;
+	// @locator-theme-secondary: @white;
+	// @address-color: #757575;
+	// @website-color: #5c5c5c;
+	// @border-color: #d9d9d9;
+	// @input-color: #828282;
+
+	// dark theme - uncomment to use instead of light theme
+	@locator-theme-main: @white;
+	@locator-theme-secondary: @black;
+	@address-color: @white;
+	@website-color: @white;
+	@border-color: @white;
+	@input-color: @white;
+
+	// details for left list
+	@title-hover: @locator-theme-main;
+	@phone-hover: @locator-theme-main;
+	@input-bg: fade(@border-color, 20%);
+	@input-bg-hover: fade(@border-color, 50%);
+	@search-text-color: @locator-theme-secondary;
+
+// info windows and dropdowns
+	@dropdown-bg: @locator-theme-secondary;
+	@infowindow-font-color: @black;
+	@locations-heading-color: @locator-theme-main;
+	@locations-panel-bg: @locator-theme-secondary;
+	@locations-arrow-color: fade(@locator-theme-main, 25%);
+
+// mixins for the dropdowns below
+
+// LOCATIONS WIDGET: Creating outer list with tabs
+// place on outer <ul> (with the id). say "none" if breakpoint not applicable
+// ex. .locations-tab-widget(none; @screen-lg-min);
+.locations-tab-widget(@two-column-breakpoint: @screen-md-min; @three-column-breakpoint: @screen-lg-min; @four-column-breakpoint: @screen-xl-min) {
+	.ul-zero-out;
+	@media (min-width: @two-column-breakpoint) {
+		.display-flex;
+		.flex-wrap(wrap);
+		margin: 0 -5px; // column spacing
+	}
+	.panel { // used for toggle functionality
+		// override default
+		border: none;
+		.border-radius(0px);
+		box-shadow: none;
+		margin-bottom: 5px;
+		@media (min-width: @screen-sm-min) {
+			margin-bottom: 10px;
+		}
+	}
+	> li {
+		@media (min-width: @two-column-breakpoint) {
+			// set up flex for <li>
+			margin: 0 5px;
+			display: inline-block ~"\9";
+			vertical-align: top ~"\9";
+			// column-specific
+			.flex(0 1 calc(~"50% - 10px")); // won't work for IE11
+			width: 48% ~"\9";
+			@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { // IE10/11
+				.flex(0 1 50%); // won't work for Safari
+				max-width: calc(~"50% - 10px");
+			}
+			// TWO COLUMNS
+			&:nth-child(odd) {
+				// left column
+				> div[class*="-content"] {
+					margin-right: calc(~"-100% - 10px");
+				}
+			}
+			&:nth-child(even) {
+				// right column
+				> div[class*="-content"] {
+					margin-left: calc(~"-100% - 10px");
+				}
+			}
+		}
+		@media (min-width: @three-column-breakpoint) { //large breakpoint
+			.flex-basis(calc(~"33.33% - 10px")); // won't work for IE11
+			width: 31% ~"\9";
+			@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { // IE10/11
+				.flex-basis(33.33%); // won't work for safari
+				max-width: calc(~"33.33% - 10px");
+			}
+			&:nth-child(3n+1) {
+				// left column
+				> div[class*="-content"] {
+					margin-left: 0;
+					margin-right: calc(~"-200% - 20px");
+				}
+			}
+			&:nth-child(3n+2) {
+				// center column
+				> div[class*="-content"] {
+					margin-left: calc(~"-100% - 10px");
+					margin-right: calc(~"-100% - 10px");
+				}
+			}
+			&:nth-child(3n+3) {
+				// right column
+				> div[class*="-content"] {
+					margin-left: calc(~"-200% - 20px");
+					margin-right: 0;
+				}
+			}
+		}
+		@media (min-width: @four-column-breakpoint) { // xl breakpoint
+			.flex-basis(calc(~"25% - 10px")); // won't work for IE11
+			width: 25% ~"\9";
+			@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { // IE10/11
+				.flex-basis(25%); // won't work for safari
+				max-width: calc(~"25% - 10px");
+			}
+			&:nth-child(4n+1) {
+				// left column
+				> div[class*="-content"] {
+					margin-left: 0;
+					margin-right: calc(~"-300% - 30px");
+				}
+			}
+			&:nth-child(4n+2) {
+				// center column -left
+				> div[class*="-content"] {
+					margin-left: calc(~"-100% - 10px");
+					margin-right: calc(~"-200% - 20px");
+				}
+			}
+			&:nth-child(4n+3) {
+				// center column - right
+				> div[class*="-content"] {
+					margin-left: calc(~"-200% - 20px");
+					margin-right: calc(~"-100% - 10px");
+				}
+			}
+			&:nth-child(4n+4) {
+				// right column
+				> div[class*="-content"] {
+					margin-left: calc(~"-300% - 30px");
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+// place on .brand-heading/.state-heading
+// Breakpoint is smallest column width (when tabs are needed)
+.locations-tab-heading(@column-breakpoint: @screen-md-min) {
+	padding: 0;
+	text-align: center;
+	a {
+		// .transition(border-color .25s ease-in-out);
+		.transition(all .25s ease-in-out);
+		position: relative;
+		display: block;
+		border: 1px solid @border-color;
+		outline: none;
+		// for text links
+		color: @locations-heading-color;
+		font-weight: normal;
+		line-height: 58px;
+		@media (min-width: @screen-md-min) {
+			line-height: 98px;
+		}
+		&:hover {
+			border-color: @border-color;
+			color: @dealer-locator-primary;
+			&:after {
+				color: @dealer-locator-primary;
+			}
+		}
+		&:not(.collapsed) {
+			@media (min-width: @column-breakpoint) {
+				// "Tab" open
+				border-bottom-color: transparent;
+				position: relative;
+				border-color: @border-color;
+
+				&:hover, &:focus, &:active {
+					border-color: @border-color;
+					color: @dealer-locator-primary;
+				}
+				&:before {
+					opacity: 1;
+				}
+				&:after {
+					color: @dealer-locator-primary;
+				}
+			}
+		}
+		&:before {
+			@media (min-width: @column-breakpoint) {
+				// cover borders to fake a "tab"
+				.transition(opacity .25s ease-in-out);
+				content: '';
+				position: absolute;
+				z-index: 1; // over collapse
+				opacity: 0;
+				left: -1px;
+				right: -1px;
+				bottom: -12px;
+				height: 12px;
+				background-color: @locations-panel-bg;
+				border-left: 1px solid @border-color;
+				border-right: 1px solid @border-color;
+				pointer-events: none;
+			}
+		}
+		&:after {
+			// arrow icon
+			.transition(all .25s ease-in-out);
+			display: inline-block;
+			position: absolute;
+			right: 40px;
+			content: '\f107';
+			font-family: FontAwesome;
+			font-size: (@base-font-size + 4px);
+			color: @locations-arrow-color;
+			.rotateX(180deg);
+		}
+		&.collapsed:after {
+			.rotateX(0deg);
+		}
+	}
+}
+// place on .brand-content/.state-content
+// Breakpoint is smallest column width (when tabs are needed)
+.locations-tab-content(@column-breakpoint: @screen-md-min) {
+	@media (min-width: @column-breakpoint) {
+		&.collapse.in {
+			// bring over columns in same row when open
+			position: relative;
+			// z-index: 1; // forms
+		}
+	}
+	> div {
+		padding: 30px 0;
+		@media (min-width: @screen-md-min) { // intentionally not param
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+		@media (min-width: @column-breakpoint) {
+			margin-top: 10px;
+			padding-left: 15px;
+			padding-right: 15px;
+			// margin-top: 10px;
+			border: 1px solid @border-color;
+			background-color: @dropdown-bg; // hide overlapping column content
+		}
+	}
+}
+
+
+// Custom Dropdown ==================================
+// Place on immediate parent of <select>
+// Ex. .custom-dropdown('\f107'; @dealer-locator-primary; 18px; 40px);
+// REWORK when <select> gets a <label>, so icon will be more reliably positioned
+.custom-dropdown(@icon; @color; @font-size; @height-of-select) {
+	position: relative;
+	&:after {
+		content: @icon;
+		font-family: FontAwesome;
+		color: @color;
+		position: absolute;
+		right: 10px;
+		bottom: 0;
+		line-height: @height-of-select;
+		font-size: @font-size;
+		pointer-events: none;
+	}
+	select {
+		// remove arrow
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		&::-ms-expand {
+			display: none; // for IE11
+		}
+	}
+}
+
+// end mixins
+
+  .find-by-state {
+    padding-top: 20px;
+		.find-title {
+			color: @dealer-locator-primary;
+		}
+    #area-locations {
+      .locations-tab-widget;
+			margin: 0;
+			padding: 10px;
+      > .panel {
+        width: 100%;
+				background-color: @locations-panel-bg;
+        @media (min-width: @screen-lg-min) {
+          width: 25%;
+        }
+        > h4 {
+          .locations-tab-heading;
+          text-align: center;
+          margin: 0;
+          a {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .top-map {
+    height: 100%;
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid @border-color;
+    .display-flex;
+    .flex-wrap(wrap);
+    @media (min-width: @screen-lg-min) {
+      .flex-wrap(nowrap);
+    }
+    #postSearch {
+      font-weight: bold;
+      padding-top: 20px;
+      font-size: @base-font-size;
+      text-align: center;
+			color: @dealer-locator-primary;
+      @media (min-width: @screen-sm-min) {
+        width: 320px;
+      }
+    }
+    .lead-button {
+			background-color: @dealer-locator-primary;
+      transition: all .25s ease-in-out;
+			width: 100px;
+			font-size: (@base-font-size - 4px);
+			padding-left: 12px;
+			padding-right: 12px;
+			@media (min-width: @screen-lg-min) {
+				font-size: @base-font-size;
+				width: auto;
+				padding-left: 30px;
+				padding-right: 30px;
+			}
+      &:hover, &:active, &:focus {
+        background-color: darken(@dealer-locator-primary, 10%);
+      }
+    }
+    .site-button {
+			.hidden-xs;
+			.hidden-sm;
+			.hidden-md;
+      margin-top: 10px;
+    }
+    #map {
+      height: 100%;
+      margin-bottom: 20px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .details-side {
+      width: 100%;
+      @media (min-width: @screen-sm-min) {
+        .display-flex;
+        .flex-wrap(wrap);
+        .flex-align-items(flex-end);
+				.flex-justify-content(flex-start);
+				max-width: 400px;
+      }
+      @media (min-width: @screen-lg-min) {
+				.flex-justify-content(center);
+        display: block;
+        max-width: 320px;
+      }
+    }
+    .map-side {
+      border: 1px solid @border-color;
+      position: relative;
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+			@media (min-width: @screen-sm-min) {
+				max-width: ~"calc(100% - 400px)";
+				height: auto;
+			}
+      @media (min-width: @screen-lg-min) {
+        margin-left: 20px;
+        margin-top: 0;
+        max-width: ~"calc(100% - 320px)";
+      }
+    }
+    .loc-list {
+      .ul-zero-out;
+      .display-flex;
+      .flex-direction(column);
+      height: 400px;
+      max-width: 320px;
+      margin: 0 auto;
+      overflow-y: scroll;
+      border: 1px solid @border-color;
+      border-radius: 0 3px 3px 0;
+      margin-top: 20px;
+      @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+        width: 400px;
+        margin: 16px 16px 0 16px;
+      }
+      @media (min-width: @screen-lg-min) {
+        height: 450px;
+      }
+      li {
+        padding: 20px 0;
+        margin: 0 auto;
+        > div {
+          width: 275px;
+          margin: 0 auto;
+        }
+        a {
+          display: inline-block;
+        }
+				&:not(:first-child) {
+					border-top: 1px solid @border-color;
+				}
+      }
+    }
+    #search {
+      .display-flex;
+      .flex-wrap(wrap);
+      max-width: 320px;
+      @media (min-width: @screen-sm-min) {
+        width: 100%;
+        margin: 16px;
+      }
+			@media (min-width: @screen-lg-min) {
+				margin: 0 auto;
+				padding: 16px 16px 0 0;
+			}
+
+      .search-radius {
+				.hidden-xs;
+        select {
+          height: 48px;
+          @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+            height: 90px;
+          }
+        }
+      }
+      .search-radius, #resetBtn {
+        margin-top: 10px;
+        width: ~"calc(50% - 2.5px)";
+      }
+      #resetBtn {
+				@media (max-width: @screen-xs-max) {
+					width: 100%;
+					height: 50px;
+				}
+        transition: all .25s ease-in-out;
+        margin-left: 5px;
+				background-color: @dealer-locator-primary;
+        font-size: @base-font-size;
+        &:hover, &:active, &:focus {
+          background-color: darken(@dealer-locator-primary, 20%);
+        }
+      }
+      input {
+        font-size: @base-font-size;
+        background-color: @input-bg;
+        height: 74px;
+        width: ~"calc(100% - 74px)";
+        transition: all .25s ease-in-out;
+        color: @input-color;
+        border: 1px solid @border-color;
+        padding-left: 32px;
+        @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+          height: 100px;
+        }
+        &:hover, &:active, &:focus {
+          background-color: @input-bg-hover;
+        }
+      }
+      #searchBtn {
+        transition: all .25s ease-in-out;
+        width: 74px;
+        height: 74px;
+        color: @search-text-color;
+        background-color: @dealer-locator-primary;
+        font-size: (@base-font-size + 4px);
+        text-align: center;
+        @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+          height: 100px;
+        }
+        &:hover, &:active, &:focus {
+          background-color: darken(@dealer-locator-primary, 20%);
+        }
+      }
+    }
+    .dealership-info {
+      padding: 20px;
+      p {
+        font-size: (@base-font-size - 2px);
+        text-transform: uppercase;
+        padding-bottom: 16px;
+				color: @infowindow-font-color;
+      }
+      h3 {
+				color: @dealer-locator-primary;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  #new-list {
+    display: none;
+    .loading {
+      > div {
+        font-size: @loading-fa-font-size;
+        text-align: center;
+      }
+    }
+  }
+
+  .loc-list {
+    display: block;
+    .ul-zero-out;
+      h4 {
+        color: @dealer-locator-primary;
+        font-size: (@base-font-size + 2px);
+        display: block;
+        margin-bottom: 16px;
+        cursor: pointer;
+        transition: all .25s ease-in-out;
+        font-weight: bold;
+        &:hover, &:active, &:focus {
+          color: @title-hover;
+        }
+      }
+      .website {
+        display: block;
+        > a {
+          font-size: (@base-font-size - 2px);
+          color: @website-color;
+          display: inline-block;
+          transition: all .25s ease-in-out;
+          &:hover, &:active, &:focus {
+            color: @dealer-locator-primary;
+          }
+        }
+      }
+      .phone {
+        font-size: @base-font-size;
+        padding-right: 10px;
+        line-height: 30px;
+        transition: all .25s ease-in-out;
+        display: inline-block;
+        font-weight: bold;
+				color: @dealer-locator-primary;
+        &:hover, &:active, &:focus {
+          color: @phone-hover;
+        }
+      }
+      .directions {
+        display: block;
+      }
+      .address {
+        display: block;
+        color: @address-color;
+        font-size: (@base-font-size - 2px);
+        i {
+          color: @dealer-locator-primary;
+        }
+        >span {
+          display: block;
+        }
+      }
+      a {
+        display: inline-block;
+				color: @dealer-locator-primary;
+				transition: all .25s ease-in-out;
+				&:hover, &:active, &:focus {
+					color: @locator-theme-main;
+				}
+      }
+      .locations-list {
+        .ul-zero-out;
+        .clearfix;
+        > li {
+          .make-xs-column(12);
+          .make-sm-column(6);
+          .make-md-column(4);
+          .make-xl-column(3);
+          margin-bottom: 20px;
+          @media (min-width: @screen-sm-min) {
+            min-height: 110px; // fix floating when one is taller
+            margin-top: 20px;
+          }
+          h4 {
+            padding-bottom: 0;
+          }
+          > span {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .state-content {
+        .locations-tab-content;
+      .locations-list {
+        .display-flex;
+        .flex-wrap(wrap);
+      }
+    }
+    #location-list, #new-list {
+			.hidden-xs;
+      h4 {
+        display: inline-block;
+      }
+    }
+    #area-locations {
+      .state-location {
+        h4 {
+          display: inline-block;
+          margin-bottom: 12px;
+        }
+      }
+    }
+}

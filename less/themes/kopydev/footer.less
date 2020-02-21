@@ -1,0 +1,289 @@
+// last updated 3/6/18
+
+#footer {
+	background-color: darken(@index-primary, 8%);
+	.calc-text-color(darken(@index-primary, 8%));
+
+	a {
+		color: @index-secondary;
+		&:hover, &:active, &:focus {
+			color: @white;
+		}
+	}
+}
+
+.footer-container {
+	.container;
+
+	&--newsletter {
+		display: none; // hide by default but get to show from script
+		padding-top: 40px;
+		> h4 {
+			color: @white;
+			font-weight: 700;
+			text-align: center;
+			text-transform: uppercase;
+		}
+	}
+
+	&--top {
+      padding-top: 30px;
+      padding-bottom: 30px;
+	}
+   &--bottom {
+      padding-top: 15px;
+      padding-bottom: 15px;
+   }
+}
+
+// as default, hide newsletter signup form in footer
+#xtNewsletterWrap {
+	display: none;
+
+	.form-header, form, .form-footer {
+		width: 100%;
+	}
+	.form-header {
+		> * {
+			display: none;
+		}
+		> #resultMessage {
+			display: block;
+			text-align: center;
+		}
+	}
+	form {
+		@media (min-width: @screen-sm-min) {
+			.display-flex;
+			.flex-align-items(flex-start);
+			.flex-justify-content(center);
+		}
+
+		ul {
+			> li {
+				padding-bottom:	0;
+				@media (min-width: @screen-sm-min) {
+					float: none;
+					width: 100%;
+				}
+			}
+		}
+		#formFirstName, #formLastName {
+			display: none;
+		}
+		#formEmail {
+			input {
+				font-size: 18px;
+				padding-top: 14px;
+				padding-bottom: 14px;
+				@media (min-width: @screen-sm-min) {
+				  width: 300px;
+				}
+			}
+		}
+		.submitBlock {
+			@media (min-width: @screen-sm-min) {
+			  padding-top: 0;
+			}
+			li.submitButton {
+				button {
+					background-color: darken(@index-primary, 12%);
+
+					@media (min-width: @screen-sm-min) {
+					  width: 200px;
+					}
+
+					&:hover, &:active, &:focus {
+						background-color: lighten(@index-primary, 15%);
+					}
+				}
+			}
+		}
+	}
+}
+
+.footer-row {
+	@media (min-width: @screen-sm-min) {
+		.flex-grid-row;
+	}
+
+   &--top {
+
+   }
+	&--bottom {
+		@media (min-width: @screen-sm-min) {
+			.flex-align-items(center);
+			.flex-justify-content(space-between);
+		}
+	}
+}
+
+// TOP -------------------------------
+
+.footer-column {
+   // FIXED-WIDTH COLUMNS
+	// .flex-make-sm-column(6);
+	// .flex-make-md-column(3);
+	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+		 .flex-col-base;
+		 -webkit-flex: 0 0 percentage(6 / 12);
+		 -ms-flex: 0 0 percentage(6 / 12);
+		 flex: 0 0 percentage(6 / 12);
+		 max-width: percentage(6 / 12);
+	}
+
+   // AUTO-SIZED COLUMNS (width based on content)
+   .flex-col-auto;
+   @media (min-width: @screen-md-min) {
+      &:last-child {
+         margin-left: auto;
+      }
+   }
+	 &:nth-child(n+2) {
+		 @media (max-width: @screen-xs-max) {
+		   margin-top: 30px;
+		 }
+	 }
+	 &:nth-child(n+3) {
+		 @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+		   margin-top: 30px;
+		 }
+	 }
+
+   // AUTO-SIZED COLUMNS (width fills parent)
+   // .flex(1 0 auto);
+
+	@media (min-width: @screen-md-min) {
+		& + & {
+			padding-left: 30px;
+			position: relative;
+
+			// border between columns
+			&:before {
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 0;
+				border-left: 1px solid fade(@black, 30%);
+			}
+		}
+	}
+
+}
+
+.footer-column__header {
+	font-size: 24px;
+	color: @white;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.footer-column__list {
+	.ul-zero-out;
+}
+
+// specific columns
+.footer-column--contact {
+	a {
+		.fa {
+			margin-right: 6px;
+		}
+	}
+}
+
+.footer-column--hours {
+	.footer-column__list {
+		li {
+			span {
+				display: inline-block;
+				width: 100px;
+			}
+		}
+	}
+}
+
+.footer-column--links {
+	// a {
+	// 	color: @index-secondary;
+	// 	&:hover, &:active, &:focus {
+	// 		color: @white;
+	// 	}
+	// }
+}
+
+.footer-column--extras {
+	.footer-column__header {
+		@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+			width: 28px;
+			display: inline-block;
+			word-break: break-all;
+			text-align: center;
+			line-height: 1;
+			margin-bottom: 0;
+		}
+	}
+}
+
+.footer-social {
+	&.social-block {
+		@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 5px;
+		}
+		li {
+			@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+				display: block;
+				padding-left: 0;
+
+				&:nth-child(n+2) {
+					padding-top: 5px;
+				}
+			}
+		}
+	}
+}
+
+
+// BOTTOM ------------------------
+
+.footer-bottom {
+	@media (min-width: @screen-sm-min) {
+	  background-color: darken(@index-primary, 12%);
+	}
+}
+
+.footer-bottom__elem {
+
+}
+
+.footer-bottom__elem--links {
+	@media (min-width: @screen-sm-min) {
+		white-space: nowrap; //fix safari flexbox bug
+	}
+}
+
+.footer-bottom__elem--copyright {
+	margin-left: auto;
+	@media (max-width: @screen-xs-max) {
+		span {
+			display: block;
+		}
+	}
+}
+
+.footer-bottom__elem--ds-logo {
+	a {
+		img {
+			@media (max-width: @screen-xs-max) {
+				margin-left: -12px;
+			}
+		}
+		&:hover, &:active, &:focus {
+			opacity: 0.7;
+			transition: .2s;
+		}
+	}
+}

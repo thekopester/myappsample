@@ -1,0 +1,1389 @@
+// contained slideshow
+.slideshow-rush {
+	&.slideshow-v1 {
+
+		// sets up default styles
+		// .slideshow-defaults;
+		// .slideshow-default-opacity;
+
+		// makes slides fade instead of slide. param is fade duration
+		.carousel-fade(1s);
+
+		//(image aspect ratio -> height/width)
+		.slideshow-sizer(600 / 2000);
+
+		// position nav arrows inside .container
+		// .slideshow-nav-container;
+
+		// (icon-left, icon-right, font-size, width, height)
+		.carousel-nav-styler('\f0d9', '\f0da', 22px, 16px, 16px);
+
+		// (shape -> circle/square/none, color, background color)
+		.carousel-nav-button-styler(circle, fade(darken(@white, 4%), 50%), transparent);
+
+		// (hover color, hover background color)
+		.carousel-nav-button-hover-styler(darken(@white, 4%), transparent);
+
+		// (width, color, hover-color)
+		// .carousel-nav-border-styler(4px, yellow, red);
+
+		//sets arrow background to 2 colors with specified angle
+		// (color1, color2, angle)
+		// .two-tone-nav(@index-primary, darken(@index-primary, 30%), -45deg);
+
+		//nudges arrow icon to be visually centered if needed
+		//(top, left arrow{left}, right arrow {right})
+		// .carousel-icon-nudge(2px, -2px, -2px);
+
+		// (default-bg, active-bg, dimension)
+		.slideshow-indicators-styler(transparent, fade(darken(@white, 4%), 50%), 14px);
+
+		// (position, spacing, bottom)
+		.slideshow-indicators-position(left, 24px, 14px);
+
+		// adds borders to bullets
+		// params width, style, color, .active color
+		// 4th param is optional
+		.slideshow-indicators-border(2px, solid, fade(darken(@white, 4%), 50%), fade(darken(@white, 4%), 50%));
+
+		// styles for main slideshow container
+		@media (max-width: @screen-xs-max) {
+			padding-bottom: 36px;
+		}
+
+		// hide/show indicators in mobile view
+		@slideshow-indicators-xs-show: hide; // options (hide/show)
+
+		.carousel-indicators {
+			@media (max-width: @screen-xs-max) {
+				// hide/show carousel indicator in mobile
+				display: none;
+				& when (@slideshow-indicators-xs-show = show) {
+					display: block;
+				}
+				bottom: -32px;
+				left: 24px;
+				margin-left: 50%;
+			}
+			@media (min-width: @screen-sm-min) {
+				left: 28px;
+			}
+			@media (min-width: @screen-md-min) {
+				left: 28px;
+				bottom: 22px;
+			}
+			> li {
+				.transition(all @transition-speed ease-in-out);
+				@media (max-width: @screen-xs-max) {
+					border-color: contrast(@bg-body, fade(lighten(@black, 35%), 50%), fade(darken(@white, 4%), 50%));
+
+					&.active {
+						background-color: contrast(@bg-body, fade(lighten(@black, 35%), 50%), fade(darken(@white, 4%), 50%));
+						border-color: contrast(@bg-body, fade(lighten(@black, 35%), 50%), fade(darken(@white, 4%), 50%));
+					}
+				}
+				@media (min-width: @screen-sm-min) {
+					.box-shadow(0 0 6px fade(lighten(@black, 1%), 75%));
+				}
+				@media (max-width: @screen-sm-max) {
+					width: 28px;
+					height: 28px;
+					margin-left: 22px;
+				}
+				@media (min-width: @screen-md-min) {
+					&:hover {
+						border-color: darken(@white, 4%);
+					}
+				}
+			}
+		}
+
+		.carousel-nav {
+			position: absolute;
+			right: 0;
+			margin-right: 50%;
+			@media (max-width: @screen-xs-max) {
+				& when (@slideshow-indicators-xs-show = hide) {
+					left: 0;
+					margin-right: auto;
+					margin-left: auto;
+				}
+			}
+			&:after {
+				content: "";
+				display: inline-block;
+				position: absolute;
+				z-index: 2;
+				bottom: 1px;
+				right: 0;
+				height: 14px;
+				width: 2px;
+				background-color: fade(darken(@white, 4%), 50%);
+				@media (max-width: @screen-xs-max) {
+					& when (@slideshow-indicators-xs-show = hide) {
+						display: none;
+					}
+					background-color: contrast(@bg-body, fade(lighten(@black, 35%), 50%), fade(darken(@white, 4%), 50%));
+				}
+				@media (min-width: @screen-sm-min) {
+					.box-shadow(0 0 6px fade(lighten(@black, 1%), 75%));
+				}
+				@media (max-width: @screen-sm-max) {
+					height: 26px;
+				}
+			}
+			@media (max-width: @screen-xs-max) { bottom: -33px; }
+			@media (min-width: @screen-sm-min) { bottom: 14px; }
+			@media (min-width: @screen-md-min) { bottom: 22px; }
+		}
+		.carousel-control {
+			.transition(all @transition-speed ease-in-out);
+			top: auto;
+			margin: 0;
+
+			&:hover, &:active, &:focus {
+				.fa {
+					@media (max-width: @screen-xs-max) {
+					  color: contrast(@bg-body, lighten(@black, 15%), darken(@white, 4%));
+					}
+				}
+			}
+			@media (max-width: @screen-sm-max) {
+				font-size: 40px;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+			}
+			.fa {
+				.transition(all @transition-speed ease-in-out);
+				@media (max-width: @screen-xs-max) {
+					color: contrast(@bg-body, fade(lighten(@black, 35%), 50%), fade(darken(@white, 4%), 50%));
+				}
+				@media (max-width: @screen-sm-max) {
+					line-height: 30px;
+					width: 30px;
+				}
+				&:before {
+					@media (min-width: @screen-sm-min) {
+						text-shadow: 0 0 6px fade(lighten(@black, 1%), 75%);
+					}
+				}
+			}
+			&.left {
+				left: auto;
+				right: 96px;
+				@media (max-width: @screen-xs-max) {
+					& when (@slideshow-indicators-xs-show = hide) {
+						left: -60px;
+						right: auto;
+						margin-left: 50%;
+					}
+				}
+				@media (min-width: @screen-sm-min) { right: 108px; }
+				@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { right: 136px; }
+			}
+			&.pause { // pause button
+				display: block;
+				font-size: 16px;
+				right: 60px;
+				left: auto;
+				@media (max-width: @screen-xs-max) {
+					& when (@slideshow-indicators-xs-show = hide) {
+						left: -15px;
+						right: auto;
+						margin-left: 50%;
+					}
+				}
+				@media (min-width: @screen-sm-min) { right: 68px; }
+				@media (max-width: @screen-sm-max) { font-size: 28px; }
+				@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { right: 82px; }
+			}
+			&.right {
+				right: 24px;
+				@media (max-width: @screen-xs-max) {
+					& when (@slideshow-indicators-xs-show = hide) {
+						right: -60px;
+						margin-right: 50%;
+					}
+				}
+				@media (min-width: @screen-sm-min) { right: 28px; }
+			}
+		}
+		// change out pause button for a play button, when slideshow is paused
+		.carousel-slideshow {
+			&.paused {
+				.carousel-control {
+					&.pause {
+						.fa-pause {
+							&:before {
+								content: "\f144";
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&.slideshow-v2 {
+
+		// sets up default styles
+		// .slideshow-defaults;
+		// .slideshow-default-opacity;
+
+		// makes slides fade instead of slide. param is fade duration
+		.carousel-fade(1s);
+
+		//(image aspect ratio -> height/width)
+		.slideshow-sizer(500 / 1500);
+
+		// position nav arrows inside .container
+		// .slideshow-nav-container;
+
+		// (icon-left, icon-right, font-size, width, height)
+		.carousel-nav-styler('\f0d9', '\f0da', 36px, 30px, 214px);
+
+		// (shape -> circle/square/none, color, background color)
+		.carousel-nav-button-styler(square, fade(@white, 80%), fade(@index-primary, 80%));
+
+		// (hover color, hover background color)
+		.carousel-nav-button-hover-styler(@white, darken(@index-primary, 10%));
+
+		// (width, color, hover-color)
+		// .carousel-nav-border-styler(4px, yellow, red);
+
+		//sets arrow background to 2 colors with specified angle
+		// params (color1, color2, angle)
+		// .two-tone-nav(@index-primary, darken(@index-primary, 30%), -45deg);
+
+		//nudges arrow icon to be visually centered if needed
+		//param (top, left arrow{left}, right arrow {right})
+		// .carousel-icon-nudge(2px, -2px, -2px);
+
+		// (default-bg, active-bg, dimension)
+		.slideshow-indicators-styler(transparent, darken(@white, 4%), 14px);
+
+		// (position, spacing, bottom)
+		.slideshow-indicators-position(center, 24px, 14px);
+
+		// adds borders to bullets
+		// params width, style, color, .active color
+		// 4th param is optional
+		.slideshow-indicators-border(2px, solid, darken(@white, 4%), darken(@white, 4%));
+
+		// styles for main slideshow container
+		padding-bottom: 44px;
+		margin-bottom: 20px;
+		@media (max-width: @screen-xs-max) {
+			& when (@slideshow-indicators-xs-show = hide) {
+				padding-bottom: 36px;
+			}
+		}
+		@media (min-width: @screen-sm-min) { padding-bottom: 17px; }
+		@media (min-width: @screen-md-min) { padding-bottom: 20px; }
+
+		// hide/show indicators in mobile view
+		@slideshow-indicators-xs-show: hide; // options (hide/show)
+
+		.carousel-indicators {
+			padding: 6px 0 6px 90px;
+			bottom: -44px;
+			@media (max-width: @screen-xs-max) {
+				text-align: left;
+				display: none;
+				& when (@slideshow-indicators-xs-show = show) {
+					display: block;
+				}
+			}
+			@media (min-width: @screen-sm-min) {
+				padding-left: 136px;
+				padding-right: 60px;
+				width: auto;
+				margin-left: 40%;
+				left: -136px;
+				bottom: -17px;
+			}
+			@media (min-width: @screen-md-min) {
+				padding-top: 12px;
+				padding-bottom: 14px;
+				margin-left: 50%;
+				bottom: -20px;
+			}
+
+			&:before {
+				content: "";
+				display: inline-block;
+				position: absolute;
+				z-index: -1;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				width: 100%;
+				background-color: @index-primary;
+			}
+			&:after {
+				content: "";
+				display: inline-block;
+				position: absolute;
+				z-index: 2;
+				top: 0;
+				bottom: 0;
+				left: 66px;
+				height: 14px;
+				width: 2px;
+				margin: auto 0;
+				background-color: darken(@white, 4%);
+
+				@media (max-width: @screen-sm-max) { height: 20px; }
+				@media (min-width: @screen-sm-min) { left: 105px; }
+			}
+			> li {
+				.transition(all @transition-speed ease-in-out);
+				@media (max-width: @screen-sm-max) {
+					width: 22px;
+					height: 22px;
+				}
+				@media (min-width: @screen-md-min) {
+					&:hover {
+						border-color: darken(@index-secondary, 4%);
+					}
+				}
+			}
+		}
+
+		.carousel-control {
+			.transition(all @transition-speed ease-in-out);
+			.fa {
+				.transition(all @transition-speed ease-in-out);
+				@media (max-width: @screen-sm-max) {
+					line-height: 40px;
+					height: 40px;
+					margin: auto;
+					background: transparent;
+				}
+			}
+			@media (max-width: @screen-sm-max) {
+				.display-flex();
+				font-size: 24px;
+				height: 100%;
+				line-height: normal;
+				background: fade(@index-primary, 80%);
+			}
+			&:hover, &:active, &:focus {
+				background: darken(@index-primary, 10%);
+				.fa {
+					@media (max-width: @screen-sm-max) {
+						background: transparent;
+					}
+				}
+			}
+			&.pause {
+				top: auto;
+				bottom: -38px;
+				left: 26px;
+				z-index: 16;
+				font-size: 16px;
+				width: 16px;
+				height: 16px;
+				line-height: 16px;
+				background: transparent;
+				@media (max-width: @screen-sm-max) {
+					font-size: 23px;
+					width: 22px;
+					height: 22px;
+					line-height: 22px;
+				}
+				@media (max-width: @screen-xs-max) {
+					& when (@slideshow-indicators-xs-show = hide) {
+						width: 30px;
+						height: 30px;
+						font-size: 18px;
+						line-height: 30px;
+						left: -15px;
+						bottom: -34px;
+						margin-left: 50%;
+						background: fade(@index-primary, 80%);
+						.border-radius(3px);
+					}
+				}
+				@media (min-width: @screen-sm-min) {
+					left: 29%;
+					bottom: -11px;
+				}
+				@media (min-width: @screen-md-min) {
+					left: 42%;
+					bottom: -7px;
+				}
+				@media (min-width: @screen-lg-min) { left: 43%; }
+				@media (min-width: @screen-xl-min) { left: 45%; }
+				.fa {
+					line-height: 16px;
+					width: 16px;
+					color: @white;
+					background: transparent;
+					@media (max-width: @screen-sm-max) {
+						line-height: 22px;
+						width: 22px;
+					}
+					@media (max-width: @screen-xs-max) {
+						& when (@slideshow-indicators-xs-show = hide) {
+							height: 30px;
+							line-height: 30px;
+						}
+					}
+				}
+				&:hover, &:active, &:focus {
+					.fa {
+						color: darken(@index-secondary, 4%);
+					}
+				}
+			}
+			&.left, &.right {
+				@media (max-width: @screen-xs-max) {
+					& when (@slideshow-indicators-xs-show = hide) {
+						height: 30px;
+						top: auto;
+						bottom: -34px;
+						.border-radius(3px);
+
+						.fa {
+							line-height: 30px;
+							height: 30px;
+						}
+					}
+				}
+			}
+			&.left {
+				@media (max-width: @screen-xs-max) {
+					& when (@slideshow-indicators-xs-show = hide) {
+						left: -60px;
+						margin-left: 50%;
+					}
+				}
+			}
+			&.right {
+				@media (max-width: @screen-xs-max) {
+					& when (@slideshow-indicators-xs-show = hide) {
+						right: -60px;
+						margin-right: 50%;
+					}
+				}
+			}
+		}
+
+		// change out pause button for a play button, when slideshow is paused
+		.carousel-slideshow {
+			&.paused {
+				.carousel-control {
+					&.pause {
+						.fa-pause {
+							&:before {
+								content: "\f144";
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// contained slideshow and CTAs
+.slideshow-ctas-container {
+	@media (max-width: @screen-xs-max) {
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+	@media (min-width: @screen-sm-min) {
+		.display-flex;
+	}
+	@media (min-width: @screen-xl-min) {
+		.flex-justify-content(space-around);
+	}
+
+	.slideshow-rush {
+		&.slideshow-v3 {
+
+			// sets up default styles
+			// .slideshow-defaults;
+			// .slideshow-default-opacity;
+
+			// makes slides fade instead of slide. param is fade duration
+			.carousel-fade(1s);
+
+			//(image aspect ratio -> height/width)
+			.slideshow-sizer(500 / 800);
+
+			// position nav arrows inside .container
+			// .slideshow-nav-container;
+
+			// (icon-left, icon-right, font-size, width, height)
+			.carousel-nav-styler('\f0d9', '\f0da', 36px, 60px, 60px);
+
+			// (shape -> circle/square/none, color, background color)
+			.carousel-nav-button-styler(square, @white, @index-primary);
+
+			// (hover color, hover background color)
+			.carousel-nav-button-hover-styler(@index-secondary, darken(@index-primary, 10%));
+
+			// (width, color, hover-color)
+			// .carousel-nav-border-styler(4px, yellow, red);
+
+			//sets arrow background to 2 colors with specified angle
+			// params (color1, color2, angle)
+			// .two-tone-nav(@index-primary, darken(@index-primary, 30%), -45deg);
+
+			//nudges arrow icon to be visually centered if needed
+			//param (top, left arrow{left}, right arrow {right})
+			// .carousel-icon-nudge(2px, -2px, -2px);
+
+			// (default-bg, active-bg, dimension)
+			.slideshow-indicators-styler(transparent, darken(@white, 4%), 14px);
+
+			// (position, spacing, bottom)
+			.slideshow-indicators-position(center, 24px, 14px);
+
+			// adds borders to bullets
+			// params width, style, color, .active color
+			// 4th param is optional
+			.slideshow-indicators-border(2px, solid, darken(@white, 4%), darken(@white, 4%));
+
+			// styles for main slideshow container
+			padding-bottom: 32px;
+			margin-bottom: 35px;
+
+			@media (max-width: @screen-xs-max) {
+				padding-bottom: 104px;
+				& when (@slideshow-indicators-xs-show = hide) {
+					padding-bottom: 70px;
+					margin-bottom: 20px;
+				}
+			}
+			@media (min-width: @screen-sm-min) {
+				flex: 0 0 percentage(2/3);
+				max-width: percentage(2/3);
+				padding-bottom: 17px;
+				margin-left: 15px;
+			}
+			@media (min-width: @screen-md-min) { padding-bottom: 20px; }
+			@media (min-width: @screen-xl-min) {
+			  max-width: 800px;
+			}
+
+			// hide/show indicators in mobile view
+			@slideshow-indicators-xs-show: hide; // options (hide/show)
+
+			.carousel-indicators {
+				padding: 6px 0 6px 90px;
+				bottom: -104px;
+				@media (max-width: @screen-xs-max) {
+					display: none;
+					& when (@slideshow-indicators-xs-show = show) {
+						display: block;
+						text-align: left;
+					}
+				}
+				@media (min-width: @screen-sm-min) {
+					padding-left: 136px;
+					padding-right: 60px;
+					width: auto;
+					margin-left: 40%;
+					left: -136px;
+					bottom: -17px;
+				}
+				@media (min-width: @screen-md-min) {
+					padding-top: 12px;
+					padding-bottom: 14px;
+					margin-left: 50%;
+					bottom: -20px;
+				}
+
+				&:before {
+					content: "";
+					display: inline-block;
+					position: absolute;
+					z-index: -1;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: 100%;
+					width: 100%;
+					background-color: @index-primary;
+
+					@media (min-width: @screen-sm-min) {
+					  .border-radius(5px);
+					}
+				}
+				&:after {
+					content: "";
+					display: inline-block;
+					position: absolute;
+					z-index: 2;
+					top: 0;
+					bottom: 0;
+					left: 66px;
+					height: 14px;
+					width: 2px;
+					margin: auto 0;
+					background-color: darken(@white, 4%);
+
+					@media (max-width: @screen-sm-max) { height: 20px; }
+					@media (min-width: @screen-sm-min) { left: 105px; }
+				}
+				> li {
+					.transition(all @transition-speed ease-in-out);
+					@media (max-width: @screen-sm-max) {
+						width: 22px;
+						height: 22px;
+					}
+					@media (min-width: @screen-md-min) {
+						&:hover {
+							border-color: darken(@index-secondary, 4%);
+						}
+					}
+				}
+			}
+
+			.carousel-control {
+				.transition(all @transition-speed ease-in-out);
+				.fa {
+					.transition(all @transition-speed ease-in-out);
+				}
+				&.pause {
+					top: auto;
+					bottom: -98px;
+					left: 26px;
+					z-index: 16;
+					font-size: 16px;
+					width: 16px;
+					height: 16px;
+					line-height: 16px;
+
+					@media (max-width: @screen-sm-max) {
+						font-size: 23px;
+						width: 22px;
+						height: 22px;
+						line-height: 22px;
+					}
+					@media (max-width: @screen-xs-max) {
+						& when (@slideshow-indicators-xs-show = hide) {
+							bottom: -55px;
+							left: -20px;
+							margin-left: 50%;
+							width: 40px;
+							height: 40px;
+							line-height: 40px;
+						}
+					}
+					@media (min-width: @screen-sm-min) {
+						left: -78px;
+						bottom: -11px;
+						margin-left: 40%;
+					}
+					@media (min-width: @screen-md-min) {
+						margin-left: 50%;
+						bottom: -7px;
+					}
+					.fa {
+						line-height: 16px;
+						width: 16px;
+						color: @white;
+						background: transparent;
+
+						@media (max-width: @screen-sm-max) {
+							line-height: 22px;
+							width: 22px;
+						}
+						@media (max-width: @screen-xs-max) {
+							& when (@slideshow-indicators-xs-show = hide) {
+								.border-radius(5px);
+								line-height: 40px;
+								width: 40px;
+								background: @index-primary;
+							}
+						}
+					}
+					&:hover, &:active, &:focus {
+						.fa {
+							color: @index-secondary;
+							@media (max-width: @screen-xs-max) {
+								& when (@slideshow-indicators-xs-show = hide) {
+									background: darken(@index-primary, 10%);
+								}
+							}
+						}
+					}
+				}
+				&.left {
+					left: -15px;
+					@media (max-width: @screen-xs-max) {
+					  left: -60px;
+						margin-left: 50%;
+						& when (@slideshow-indicators-xs-show = hide) {
+							left: -80px;
+						}
+					}
+					@media (min-width: @screen-md-min) {
+					  left: -30px;
+					}
+				}
+				&.right {
+					right: -15px;
+					@media (max-width: @screen-xs-max) {
+					  right: -60px;
+						margin-right: 50%;
+						& when (@slideshow-indicators-xs-show = hide) {
+							right: -80px;
+						}
+					}
+					@media (min-width: @screen-md-min) {
+					  right: -30px;
+					}
+				}
+				&.left, &.right {
+					@media (max-width: @screen-sm-max) {
+					  height: 40px;
+						width: 40px;
+						line-height: 40px;
+					}
+					@media (max-width: @screen-xs-max) {
+						top: auto;
+						bottom: -55px;
+					}
+					.fa {
+						.border-radius(5px);
+						@media (max-width: @screen-sm-max) {
+							line-height: 40px;
+							width: 40px;
+						}
+					}
+				}
+			}
+
+			// change out pause button for a play button, when slideshow is paused
+			.carousel-slideshow {
+				&.paused {
+					.carousel-control {
+						&.pause {
+							.fa-pause {
+								&:before {
+									content: "\f144";
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.index-ctas {
+		//call base styles
+
+		// // button v1 styles
+		// &__slideshow-sidebar {
+		// 	.cta-base-styler;
+		//
+		// 	@btn-bg-color: #1f1f1f; // button background color
+		// 	@btn-font-family: @font-family-sans-serif; // font-family for main bold text
+		// 	@btn-font-family-secondary: @font-family-base; // font-family for 2nd line text
+		// 	@btn-font-color: contrast(@btn-bg-color, @black, @white); // font color for main bold text
+		// 	@btn-font-color-secondary: @index-primary; // font color for 2nd line text
+		// 	@btn-font-color-hover: @index-primary; // hover font color for main bold text
+		// 	@btn-font-color-secondary-hover: contrast(@btn-bg-color, @black, @white); // hover font color for 2nd line text
+		// 	@btn-bdr-radius-active: true; // button border radius active (true or false)
+		// 	@btn-bdr-radius: 5px; // button border radius
+		// 	@btn-bdr-width: 2px; // button border width
+		// 	@btn-primary-color: @index-primary; // primary color of the bottom - used for inner button border color
+		//
+		// 	@media (max-width: @screen-xs-max) {
+		// 		padding-left: 20px;
+		// 		padding-right: 20px;
+		// 	}
+		// 	@media (min-width: @screen-sm-min) {
+		// 		flex: 0 0 percentage(1/3);
+		// 		max-width: percentage(1/3);
+		// 		padding-left: 30px;
+		// 	}
+		// 	@media (min-width: @screen-md-min) {
+		// 	  padding-left: 45px;
+		// 	}
+		// 	@media (min-width: @screen-lg-min) {
+		// 	  padding-left: 60px;
+		// 	}
+		//
+		// 	>ul {
+		// 		//# of buttons total
+		// 		@cta-count: 3;
+		//
+		// 		//transition (in, out, curve)
+		// 		// .cta-transition(0.2s, 0.2s, ease-in-out);
+		//
+		// 		//horizontal space between each button, per view (inherits from view before)
+		// 		.cta-space-between(0px);
+		//
+		// 		>li {
+		// 			//buttons as columns, per view (inherits from view before)
+		// 			// .flex-col-base;
+		// 			// .flex-ctas-make-columns(12);
+		//
+		// 			// vertical spacing between buttons
+		// 			&:nth-of-type(n+2) {
+		// 				margin-top: 4px;
+		//
+		// 				@media (min-width: @screen-sm-min) { margin-top: 3px; }
+		// 				@media (min-width: @screen-md-min) { margin-top: 4px; }
+		// 				@media (min-width: @screen-lg-min) { margin-top: 25px; }
+		// 				@media (min-width: @screen-xl-min) { margin-top: 27px; }
+		// 			}
+		//
+		// 			// width/height of buttons
+		// 			width: 100%;
+		// 			height: 82px;
+		// 			@media (min-width: @screen-sm-min) { height: 99px; }
+		// 			@media (min-width: @screen-md-min) { height: 129px; }
+		// 			@media (min-width: @screen-lg-min) { height: 143px; }
+		// 			@media (min-width: @screen-xl-min) { height: 150px; }
+		//
+		// 			//generates bg images
+		// 			//filename (must be namespaced with the button number following i.e. cta1.jpg), filetype, # of buttons)
+		// 			// .cta-bg-image(cta, jpg, @cta-count);
+		//
+		// 			//space below if multiple lines
+		// 			// margin-bottom: 30px;
+		//
+		// 			> a {
+		// 				background-color: @btn-bg-color;
+		// 				border: solid @btn-bdr-width contrast(@btn-bg-color, darken(@btn-bg-color, 90%), lighten(@btn-bg-color, 63%));
+		// 				& when (@btn-bdr-radius-active = true) {
+		// 					.border-radius(@btn-bdr-radius);
+		// 				}
+		//
+		// 				&:before {
+		// 					content: "";
+		// 					.transition(all @transition-speed ease-in-out);
+		// 					display: block;
+		// 					position: absolute;
+		// 					bottom: 0;
+		// 					left: 0; right: 0;
+		// 					height: 50%;
+		// 					background-repeat: repeat-x;
+		// 					background-image: -webkit-gradient(linear, left top, left bottom, from(fade(lighten(@btn-bg-color, 63%),30%)), to(fade(lighten(@btn-bg-color, 63%),0%)));
+		// 					background-image: -webkit-linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+		// 					background-image: -moz-linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+		// 					background-image: -ms-linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+		// 					background-image: -o-linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+		// 					background-image: linear-gradient(top, fade(lighten(@btn-bg-color, 63%),30%), fade(lighten(@btn-bg-color, 63%),0%));
+		// 					& when (@btn-bdr-radius-active = true) {
+		// 						.border-bottom-radius(@btn-bdr-radius/2);
+		// 					}
+		// 				}
+		// 				&:after {
+		// 					content: "";
+		// 					.transition(all @transition-speed ease-in-out);
+		// 					display: block;
+		// 					position: absolute;
+		// 					bottom: -@btn-bdr-width;
+		// 					left: 0; right: 0;
+		// 					height: 0;
+		// 					width: 65px;
+		// 					margin: 0 auto;
+		// 					border-top: solid (@btn-bdr-width*2) @btn-primary-color;
+		// 				}
+		// 				>div {
+		// 					.flex-column;
+		// 					// text alignment
+		// 					.flex-justify-content(center);
+		// 					.flex-align-items(center);
+		//
+		// 					>* {
+		// 						font-family: @btn-font-family;
+		// 					}
+		// 					h3 {
+		// 						.transition(all @transition-speed ease-in-out);
+		// 						font-size: 20px;
+		// 						font-weight: bold;
+		// 						color: @btn-font-color;
+		// 						text-align: center;
+		// 						// text-transform: uppercase;
+		// 						margin-bottom: 0px;
+		// 						@media (min-width: @screen-md-min) { font-size: 24px; }
+		// 						// @media (min-width: @screen-lg-min) { margin-bottom: 15px; }
+		// 						@media (min-width: @screen-xl-min) { font-size: 28px; }
+		// 					}
+		// 					>span {
+		// 						.transition(all @transition-speed ease-in-out);
+		// 						display: block;
+		// 						font-family: @btn-font-family-secondary;
+		// 						color: @btn-font-color;
+		// 						font-size: 14px;
+		// 						letter-spacing: 1px;
+		// 						text-align: center;
+		// 						text-transform: uppercase;
+		// 						margin-top: 10px;
+		//
+		// 						@media (min-width: @screen-lg-min) { margin-top: 20px; }
+		// 					}
+		// 				}
+		//
+		// 				&:hover, &:active, &:focus {
+		// 					//background image
+		// 					&:before {
+		// 						 height: 100%;
+		// 					}
+		// 					&:after {
+		// 						width: 80px;
+		// 					}
+		// 					//text
+		// 					> div {
+		//
+		// 						 h3 { color: @btn-font-color-hover; }
+		// 						 span { color: @btn-font-color-secondary-hover; }
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		// // button v2 styles
+		// &__slideshow-sidebar {
+		// 	.cta-base-styler;
+		//
+		// 	@btn-bg-color: #1f1f1f; // button background color
+		// 	@btn-font-family: @font-family-sans-serif; // font-family for main bold text
+		// 	@btn-font-family-secondary: @font-family-base; // font-family for 2nd line text
+		// 	@btn-font-color: contrast(@btn-bg-color, @black, @white); // font color for main bold text
+		// 	@btn-font-color-secondary: @index-primary; // font color for 2nd line text
+		// 	@btn-font-color-hover: @index-primary; // hover font color for main bold text
+		// 	@btn-font-color-secondary-hover: contrast(@btn-bg-color, @black, @white); // hover font color for 2nd line text
+		// 	@btn-bdr-radius-active: true; // button border radius active (true or false)
+		// 	@btn-bdr-radius: 4px; // button border radius
+		// 	@btn-bdr-width: 0px; // button border width
+		// 	@btn-primary-color: @index-primary; // primary color of the bottom - used for inner button border color
+		// 	@btn-hover-state: hover-v2; // button hover state, options: (default, hover-v1, hover-v2, hover-v3)
+		//
+		// 	@media (max-width: @screen-xs-max) {
+		// 		padding-left: 20px;
+		// 		padding-right: 20px;
+		// 	}
+		// 	@media (min-width: @screen-sm-min) {
+		// 		flex: 0 0 percentage(1/3);
+		// 		max-width: percentage(1/3);
+		// 		padding-left: 30px;
+		// 	}
+		// 	@media (min-width: @screen-md-min) {
+		// 	  padding-left: 45px;
+		// 	}
+		// 	@media (min-width: @screen-lg-min) {
+		// 	  padding-left: 60px;
+		// 	}
+		//
+		// 	>ul {
+		// 		//# of buttons total
+		// 		@cta-count: 3;
+		//
+		// 		//transition (in, out, curve)
+		// 		// .cta-transition(0.2s, 0.2s, ease-in-out);
+		//
+		// 		//horizontal space between each button, per view (inherits from view before)
+		// 		.cta-space-between(0px);
+		//
+		// 		>li {
+		// 			//buttons as columns, per view (inherits from view before)
+		// 			// .flex-col-base;
+		// 			// .flex-ctas-make-columns(12);
+		//
+		// 			// vertical spacing between buttons
+		// 			&:nth-of-type(n+2) {
+		// 				margin-top: 4px;
+		//
+		// 				@media (min-width: @screen-sm-min) { margin-top: 3px; }
+		// 				@media (min-width: @screen-md-min) { margin-top: 4px; }
+		// 				@media (min-width: @screen-lg-min) { margin-top: 25px; }
+		// 				@media (min-width: @screen-xl-min) { margin-top: 27px; }
+		// 			}
+		//
+		// 			// width/height of buttons
+		// 			width: 100%;
+		// 			height: 100px;
+		// 			@media (min-width: @screen-sm-min) { height: 99px; }
+		// 			@media (min-width: @screen-md-min) { height: 129px; }
+		// 			@media (min-width: @screen-lg-min) { height: 143px; }
+		// 			@media (min-width: @screen-xl-min) { height: 150px; }
+		//
+		// 			//generates bg images
+		// 			//filename (must be namespaced with the button number following i.e. cta1.jpg), filetype, # of buttons)
+		// 			// .cta-bg-image(cta, jpg, @cta-count);
+		//
+		// 			//space below if multiple lines
+		// 			// margin-bottom: 30px;
+		//
+		// 			> a {
+		// 				background-color: @btn-bg-color;
+		// 				border: solid @btn-bdr-width contrast(@btn-bg-color, darken(@btn-bg-color, 90%), lighten(@btn-bg-color, 63%));
+		// 				overflow: hidden;
+		// 				& when (@btn-bdr-radius-active = true) {
+		// 					.border-radius(@btn-bdr-radius);
+		// 				}
+		//
+		// 				&:before {
+		// 					content: "";
+		// 					.transition(all @transition-speed ease-in-out);
+		// 					display: block;
+		// 					position: absolute;
+		// 					top: 0; bottom: 0;
+		// 					left: 0; right: 0;
+		// 					background: -webkit-linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+		// 					background: -moz-linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+		// 					background: -ms-linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+		// 					background: -o-linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+		// 					background: linear-gradient(45deg, fade(@btn-bg-color, 0%) 0%, fade(@btn-bg-color, 0%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 50%, fade(lighten(@btn-bg-color, 15%),50%) 100%);
+		// 					& when (@btn-bdr-radius-active = true) {
+		// 						.border-radius(@btn-bdr-radius);
+		// 					}
+		//
+		// 					// activate v1 button hover state
+		// 					& when (@btn-hover-state = hover-v1) {
+		// 						@media (min-width: @screen-lg-min) {
+		// 							top: -100%; bottom: auto;
+		// 							left: -50%; right: auto;
+		// 							width: 200%; height: 300%;
+		// 						}
+		// 					}
+		// 				}
+		// 				>div {
+		// 					.flex-column;
+		// 					// text alignment
+		// 					.flex-justify-content(center);
+		// 					.flex-align-items(center);
+		//
+		// 					@media (min-width: @screen-lg-min) {
+		// 					  .flex-justify-content(flex-end);
+		// 					}
+		//
+		// 					>* {
+		// 						font-family: @btn-font-family;
+		// 					}
+		// 					h3 {
+		// 						.transition(all @transition-speed ease-in-out);
+		// 						font-size: 20px;
+		// 						font-weight: bold;
+		// 						color: @btn-font-color;
+		// 						text-align: center;
+		// 						text-transform: uppercase;
+		// 						margin-bottom: 10px;
+		// 						@media (min-width: @screen-md-min) { font-size: 24px; }
+		// 						@media (min-width: @screen-lg-min) { margin-bottom: 15px; }
+		// 						@media (min-width: @screen-xl-min) { font-size: 28px; }
+		// 					}
+		// 					>span {
+		// 						.transition(all @transition-speed ease-in-out);
+		// 						width: 138px;
+		// 						display: inline-block;
+		// 						font-family: @btn-font-family-secondary;
+		// 						color: contrast(@btn-bg-color, @black, @btn-primary-color);
+		// 						font-size: 14px;
+		// 						letter-spacing: 1px;
+		// 						line-height: 30px;
+		// 						text-align: center;
+		// 						text-transform: uppercase;
+		// 						border: solid 1px contrast(@btn-bg-color, @black, @btn-primary-color);
+		// 						.border-radius(30px);
+		//
+		// 						@media (min-width: @screen-lg-min) {
+		// 							margin-bottom: 25px;
+		// 						}
+		//
+		// 						// activate v2 button hover state
+		// 						& when (@btn-hover-state = hover-v2) {
+		// 							position: relative;
+		// 							border: none;
+		// 							&:before {
+		// 								.transition(all @transition-speed ease-in-out);
+		// 								content: "";
+		// 								position: absolute;
+		// 								z-index: -1;
+		// 								background: trasparent;
+		// 								top: 0;
+		// 								left: 0;
+		// 								right: 0;
+		// 								bottom: 0;
+		// 								border: solid 1px @btn-primary-color;
+		// 								.border-radius(30px);
+		// 							}
+		// 						}
+		//
+		// 						// activate v3 button hover state
+		// 						& when (@btn-hover-state = hover-v3) {
+		// 							position: relative;
+		//
+		// 							&:before {
+		// 								.transition(all @transition-speed ease-in-out);
+		// 								content: "";
+		// 								position: absolute;
+		// 								background: @btn-primary-color;
+		// 								z-index: -1;
+		// 								top: 0;
+		// 								left: 0;
+		// 								right: 0;
+		// 								bottom: 0;
+		// 								opacity: 0;
+		// 								.border-radius(30px);
+		// 							}
+		// 						}
+		// 					}
+		// 				}
+		//
+		// 				&:hover, &:active, &:focus {
+		// 					//background image
+		// 					&:before {
+		//
+		// 						& when (@btn-hover-state = hover-v1) { // activate v1 button hover state
+		// 							@media (min-width: @screen-lg-min) {
+		// 								-ms-transform: rotate(-45deg);
+		// 								-webkit-transform: rotate(-45deg);
+		// 								transform: rotate(-45deg);
+		// 							}
+		// 						}
+		// 					}
+		// 					//text
+		// 					> div {
+		//
+		// 						h3 {
+		// 							color: @btn-font-color-hover;
+		//
+		// 							& when (@btn-hover-state = hover-v1) { // activate v1 button hover state
+		// 								@media (min-width: @screen-lg-min) {
+		// 									color: @btn-font-color;
+		// 								}
+		// 							}
+		// 						}
+		// 						>span {
+		// 							color: @btn-font-color-secondary-hover;
+		//
+		// 							& when (@btn-hover-state = hover-v2) {  // activate v2 button hover state
+		// 								color: contrast(@btn-primary-color, @black, @white);
+		//
+		// 								&:before {
+		// 									background: @btn-primary-color;
+		// 								}
+		// 							}
+		// 							& when (@btn-hover-state = hover-v3) {  // activate v3 button hover state
+		// 								color: contrast(@btn-primary-color, @black, @white);
+		//
+		// 								&:before {
+		// 									top: 5px;
+		// 									left: 5px;
+		// 									right: 5px;
+		// 									bottom: 5px;
+		// 									opacity: 1;
+		// 								}
+		// 							}
+		// 						}
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		// button v3 styles
+		&__slideshow-sidebar {
+			.cta-base-styler;
+
+			@btn-bg-color: #1f1f1f; // button background color
+			@btn-font-family: @font-family-sans-serif; // font-family for main bold text
+			@btn-font-family-secondary: @font-family-base; // font-family for 2nd line text
+			@btn-font-color: contrast(@btn-bg-color, @black, @white); // font color for main bold text
+			@btn-font-color-secondary: contrast(@btn-bg-color, @black, @white); // font color for 2nd line text
+			@btn-font-color-hover: @index-primary; // hover font color for main bold text
+			@btn-font-color-secondary-hover: @index-primary; // hover font color for 2nd line text
+			@btn-bdr-radius-active: false; // button border radius active (true or false)
+			@btn-bdr-radius: 0px; // button border radius
+			@btn-bdr-width: 0px; // button border width
+			@btn-plus-symbol-color: @index-primary; // bg color for the "+" symbol character
+	    @btn-bg-img-path: '/images/ds-ctas-btn-bubble-bg.png'; // button bg image path
+
+			@media (max-width: @screen-xs-max) {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+			@media (min-width: @screen-sm-min) {
+				flex: 0 0 percentage(1/3);
+				max-width: percentage(1/3);
+				padding-left: 30px;
+			}
+			@media (min-width: @screen-md-min) {
+			  padding-left: 45px;
+			}
+			@media (min-width: @screen-lg-min) {
+			  padding-left: 60px;
+			}
+
+			>ul {
+				//# of buttons total
+				@cta-count: 3;
+
+				//horizontal space between each button, per view (inherits from view before)
+				.cta-space-between(0px);
+
+				>li {
+					//buttons as columns, per view (inherits from view before)
+					// .flex-col-base;
+					// .flex-ctas-make-columns(12);
+
+					// vertical spacing between buttons
+					&:nth-of-type(n+2) {
+						margin-top: 4px;
+
+						@media (min-width: @screen-sm-min) { margin-top: 3px; }
+						@media (min-width: @screen-md-min) { margin-top: 4px; }
+						@media (min-width: @screen-lg-min) { margin-top: 25px; }
+						@media (min-width: @screen-xl-min) { margin-top: 27px; }
+					}
+
+					// width/height of buttons
+					width: 100%;
+					height: 82px;
+					@media (min-width: @screen-sm-min) { height: 99px; }
+					@media (min-width: @screen-md-min) { height: 129px; }
+					@media (min-width: @screen-lg-min) { height: 143px; }
+					@media (min-width: @screen-xl-min) { height: 150px; }
+
+					> a {
+						background-color: @btn-bg-color;
+						border: solid @btn-bdr-width contrast(@btn-bg-color, darken(@btn-bg-color, 90%), lighten(@btn-bg-color, 63%));
+						& when (@btn-bdr-radius-active = true) {
+							.border-radius(@btn-bdr-radius);
+						}
+
+						&:before {
+							content: "";
+							display: block;
+							position: absolute;
+							top: 0; bottom: 0;
+							left: 0; right: 0;
+							background-image: url(@btn-bg-img-path);
+							background-repeat: no-repeat;
+							background-position: right top;
+							& when (@btn-bdr-radius-active = true) {
+								.border-radius(@btn-bdr-radius);
+							}
+						}
+						&:after {
+							content: "";
+							display: block;
+							position: absolute;
+							top: 0; bottom: 0;
+							left: 0; right: 0;
+
+							background: -webkit-linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+							background: -moz-linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+							background: -ms-linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+							background: -o-linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+							background: linear-gradient(45deg, fade(@btn-bg-color, 100%) 0%, fade(@btn-bg-color, 100%) 33%, fade(@btn-bg-color, 70%) 66%, fade(@btn-bg-color, 0%) 100%);
+
+							& when (@btn-bdr-radius-active = true) {
+								.border-radius(@btn-bdr-radius);
+							}
+						}
+						>div {
+							.flex-column;
+							// text alignment
+							.flex-align-items(flex-start);
+							.flex-justify-content(center);
+							position: relative;
+							padding-left: 30px;
+
+							&:after {
+								content: "\002B";
+								.transition(all @transition-speed ease-in-out);
+								display: block;
+								position: absolute;
+								right: 30px;
+								bottom: 0px;
+								width: 11px; height: 11px;
+								line-height: 11px;
+								font-family: 'FontAwesome';
+								font-size: 11px;
+								color: contrast(@btn-plus-symbol-color, @white, @black);
+								text-align: center;
+								background-color: @btn-plus-symbol-color;
+								.border-radius(2px);
+
+								@media (max-width: @screen-xs-max) {
+								  top: 0;
+									margin-top: auto;
+									margin-bottom: auto;
+									width: 16px; height: 16px;
+									line-height: 16px;
+									font-size: 16px;
+									font-weight: bold;
+									.border-radius(3px);
+								}
+								@media (min-width: @screen-sm-min) { bottom: 15px; }
+								@media (min-width: @screen-md-min) { bottom: 20px; }
+							}
+							@media (min-width: @screen-sm-min) {
+							  .flex-justify-content(flex-end);
+								padding-bottom: 15px;
+							}
+							@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+								padding-left: 15px;
+							}
+							@media (min-width: @screen-md-min) { padding-bottom: 20px; }
+
+							>* {
+								font-family: @btn-font-family;
+							}
+							h3 {
+								.transition(all @transition-speed ease-in-out);
+								font-size: 24px;
+								font-weight: bold;
+								color: @btn-font-color;
+								line-height: 1;
+								text-transform: uppercase;
+								margin-bottom: 0px;
+								>span {
+									display: block;
+									@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+										display: inline;
+									}
+								}
+								@media (min-width: @screen-sm-min) { margin-bottom: 10px; }
+								@media (min-width: @screen-md-min) { font-size: 24px; }
+								@media (min-width: @screen-lg-min) { font-size: 28px; }
+							}
+							>span {
+								.hidden-xs;
+								.transition(all @transition-speed ease-in-out);
+								display: inline-block;
+								font-family: @btn-font-family-secondary;
+								font-size: 14px;
+								letter-spacing: 1px;
+								color: @btn-font-color-secondary;
+							}
+						}
+
+						&:hover, &:active, &:focus {
+							//text
+							>div {
+								 &:after {
+									 color: contrast(@white, @white, @black);
+									 background-color: @white;
+								 }
+								 h3 { color: @btn-font-color-hover; }
+								 >span { color: @btn-font-color-secondary-hover; }
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+}

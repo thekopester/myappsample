@@ -1,0 +1,55 @@
+<section class="dst-block">
+<div class="dst-header">
+  [[Image.Banner1]]
+  <h1>Dealer Locator</h1>
+  <div class="dst-header-text"> [[PageSnippet.HeaderText1]] </div>
+</div>
+
+</section>
+
+<div class="top-map">
+ <div class="details-side">
+   <form id="search" onsubmit="return false">
+     <input class="controls" id="searchInput" placeholder="Enter ZIP code..." type="text">
+     <button id="searchBtn" class="search-input-btn">
+       <span class="sr-only">Search</span>
+       <i class="fa fa-long-arrow-right"></i>
+     </button>
+     <div class="search-radius">
+       <select data-param="250" id="SearchRadius" value="250">
+         <option value="25">25 miles</option>
+         <option value="50">50 miles</option>
+         <option value="100">100 miles</option>
+         <option value="150">150 miles</option>
+         <option value="250">250 miles</option>
+         <option value="500">500 miles</option>
+       </select>
+     </div>
+     <button id="resetBtn">Reset</button>
+   </form>
+   <h4 id="postSearch" style="display: none;">The closest dealerships to you are:</h4>
+
+   <ul id="new-list" class="loc-list">
+     <li class="loading">
+       <div class="loading fa-3x">
+         <i class="loading fa fa-circle-o-notch fa-spin"></i>
+       </div>
+     </li>
+   </ul>
+   <ul id="location-list" class="loc-list">
+   </ul>
+ </div>
+ <div class="map-side">
+   <div id="map"></div>
+ </div>
+</div>
+<div class="find-by-state">
+ <h3>Find Stores By State</h3>
+ <ul id="area-locations" class="loc-list">
+
+ </ul>
+</div>
+
+<script src="/js/styles.js"></script>
+<script src="/js/dealer-locator-compiled.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChRw9dsDOhzINf2tCJR7lYfZQWmTeoXgw&callback=initMap&libraries=geometry,places" async defer></script>

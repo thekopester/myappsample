@@ -1,0 +1,126 @@
+//put all custom mixins and helper classes here
+
+//  headings: Put file type at top
+// Add to id ending in file types, ex. .gist-file div[id*="html"]
+// .gist-heading-styles("HTML");
+.gist-heading-styles(@type-text) {
+    &:before {
+        content: @type-text;
+        display: block;
+        padding-left: 20px;
+        font-family: @font-family-base;
+        font-size: @font-size-h3;
+        font-weight: 700;
+        color: lighten(@gray, 15%);
+        line-height: 2;
+    }
+}
+
+
+//making flexbox grid columns
+.kopy-flex-make-xs-column(@col) {
+   .flex-col-base;
+   -webkit-flex: 0 0 percentage(@col / 12);
+   -ms-flex: 0 0 percentage(@col / 12);
+   flex: 0 0 percentage(@col / 12);
+   max-width: percentage(@col / 12);
+}
+.kopy-flex-make-sm-column(@col) {
+   @media (min-width: @screen-sm-min) {
+      .flex-col-base;
+      -webkit-flex: 0 0 percentage(@col / 12);
+      -ms-flex: 0 0 percentage(@col / 12);
+      flex: 0 0 percentage(@col / 12);
+      max-width: percentage(@col / 12);
+   }
+}
+.kopy-flex-make-md-column(@col) {
+   @media (min-width: @screen-md-min) {
+      .flex-col-base;
+      -webkit-flex: 0 0 percentage(@col / 12);
+      -ms-flex: 0 0 percentage(@col / 12);
+      flex: 0 0 percentage(@col / 12);
+      max-width: percentage(@col / 12);
+   }
+}
+.kopy-flex-make-lg-column(@col) {
+   @media (min-width: @screen-lg-min) {
+      .flex-col-base;
+      -webkit-flex: 0 0 percentage(@col / 12);
+      -ms-flex: 0 0 percentage(@col / 12);
+      flex: 0 0 percentage(@col / 12);
+      max-width: percentage(@col / 12);
+   }
+}
+.kopy-flex-make-xl-column(@col) {
+   @media (min-width: @screen-xl-min) {
+      .flex-col-base;
+      -webkit-flex: 0 0 percentage(@col / 12);
+      -ms-flex: 0 0 percentage(@col / 12);
+      flex: 0 0 percentage(@col / 12);
+      max-width: percentage(@col / 12);
+   }
+}
+
+.kopy-flex-make-columns(@xs-col, @sm-col: @xs-col, @md-col: @sm-col, @lg-col: @md-col, @xl-col: @lg-col) {
+   .kopy-flex-make-xs-column(@xs-col);
+   .kopy-flex-make-sm-column(@sm-col);
+   .kopy-flex-make-md-column(@md-col);
+   .kopy-flex-make-lg-column(@lg-col);
+   .kopy-flex-make-xl-column(@xl-col);
+}
+
+// ==================================================================
+// move following mixins to mixins.less file
+//making flexbox grid columns for CTA buttons
+.flex-ctas-make-xs-column(@col) {
+   // .flex-col-base;
+   // -webkit-flex: 0 0 percentage(@col / 12);
+   // -ms-flex: 0 0 percentage(@col / 12);
+   flex: 0 0 percentage(@col / 12);
+   max-width: percentage(@col / 12);
+}
+.flex-ctas-make-sm-column(@col) {
+   @media (min-width: @screen-sm-min) {
+      // .flex-col-base;
+      // -webkit-flex: 0 0 percentage(@col / 12);
+      // -ms-flex: 0 0 percentage(@col / 12);
+      flex: 0 0 percentage(@col / 12);
+      max-width: percentage(@col / 12);
+   }
+}
+.flex-ctas-make-md-column(@col) {
+   @media (min-width: @screen-md-min) {
+      // .flex-col-base;
+      // -webkit-flex: 0 0 percentage(@col / 12);
+      // -ms-flex: 0 0 percentage(@col / 12);
+      flex: 0 0 percentage(@col / 12);
+      max-width: percentage(@col / 12);
+   }
+}
+.flex-ctas-make-lg-column(@col) {
+   @media (min-width: @screen-lg-min) {
+      // .flex-col-base;
+      // -webkit-flex: 0 0 percentage(@col / 12);
+      // -ms-flex: 0 0 percentage(@col / 12);
+      flex: 0 0 percentage(@col / 12);
+      max-width: percentage(@col / 12);
+   }
+}
+.flex-ctas-make-xl-column(@col) {
+   @media (min-width: @screen-xl-min) {
+      // .flex-col-base;
+      // -webkit-flex: 0 0 percentage(@col / 12);
+      // -ms-flex: 0 0 percentage(@col / 12);
+      flex: 0 0 percentage(@col / 12);
+      max-width: percentage(@col / 12);
+   }
+}
+.flex-ctas-make-columns(@xs-col, @sm-col: @xs-col, @md-col: @sm-col, @lg-col: @md-col, @xl-col: @lg-col) {
+   .flex-ctas-make-xs-column(@xs-col);
+   .flex-ctas-make-sm-column(@sm-col);
+   .flex-ctas-make-md-column(@md-col);
+   .flex-ctas-make-lg-column(@lg-col);
+   .flex-ctas-make-xl-column(@xl-col);
+}
+// ==================================================================

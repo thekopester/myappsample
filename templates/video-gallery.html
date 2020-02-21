@@ -1,0 +1,37 @@
+<script src="/js/youtuber.js" type="text/javascript"></script>
+<section class="dst-block">
+[[Snippet.ContentHeader]]
+
+<div id="video-wrapper"> </div>
+
+</section>
+
+<script>
+var exampleOptionsPlaylist = {
+      wrapperId: 'video-wrapper', // id for plugin wrapper
+      playerId: 'video-player', // id for generated player (becomes iframe ID)
+      titleTag: 'h2', // type of element for title
+      type: 'playlist', //video,videos,playlist,channel
+      // videos: ['7Z4WREdbajg','N-n7qQOaHpk','morktqVZQ7A','fiIzZpYmJtA'], // type: video,videos
+      // playlist: 'PL5K0j46gQbigRWdpy3Rzi3GVYW60kOlW6', // type: playlist
+      playlist: 'PL5bfX3AM0gvxqIW1lES_NvJZRNXWixBOV', // type: playlist
+      // channel: 'UCtwnAv4q_hMyvyi8Gkl16MA', // type: channel
+      resultsPerPage: 8, // items per page, max 50
+      //eventsCallback: eventsCallback, // callback function for events (comment this out if you're not using it)
+      //loadCallback: loadCallback, // callback function on load of plugin (comment this out if you're not using it)
+      nextPageBtn: '#nextPage', // next page button selector
+      nextVidBtn: '#nextVideo', // next video button selector
+      prevPageBtn: '#prevPage', // previous page button selector
+      prevVidBtn: '#prevVideo', // previous video button selector
+      nextAfterEnd: true, // play next video once video currently playing ends
+      infiniteScroll: true, // remove pagination in favor of infinite scroll
+      showControls: true, // show/hide player controls
+      removeBranding: false, // show/hide modest branding
+      showRel: false, // show/hide relevent videos after end
+      showInfo: true, // show/hide video information in player
+      loopVideo: false, // loop current video after end
+      autoPlay: false // automatic play video on load
+};
+var videoPlayer = new YouTuber(exampleOptionsPlaylist);
+
+</script>

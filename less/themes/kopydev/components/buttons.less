@@ -1,0 +1,376 @@
+//////////////////////////
+// Social Icons Stylers //
+//////////////////////////
+
+// parameters: bg color, color: (border & icon), border width, width size, height size, hover color, icon font size
+.hexagon-shape(@bg-color: transparent; @color; @bdr-width: 1px; @width: 34px; @height: 60px; @hover-color; @font-size: 18px) {
+  display: inline-block;
+  .hex-span {
+    .transition(all .2s ease-in-out);
+    position: relative;
+    display: inline-block;
+    width: @width; height: @height;
+    margin: 0 calc(@width/2);
+    border-top: solid @bdr-width @color;
+    border-bottom: solid @bdr-width @color;
+    background-color: @bg-color;
+    color: @color;
+
+    .display-flex();
+    .flex-justify-content(center);
+    .flex-align-items(center);
+
+    .fa {
+      z-index: 2;
+      font-size: @font-size;
+    }
+    &:before, &:after {
+      .transition(all .2s ease-in-out);
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin-top: auto;
+      margin-bottom: auto;
+      z-index: 1;
+      width: calc((70 * @height) / 100);
+      height: calc((70 * @height) / 100);
+      -webkit-transform: scaleX(.6) rotate(45deg);
+      -ms-transform: scaleX(.6) rotate(45deg);
+      transform: scaleX(.6) rotate(45deg);
+      background-color: @bg-color;
+    }
+    &:before {
+      left: calc(-((35 * @height) / 100));
+      border-bottom: solid @bdr-width @color;
+      border-left: solid @bdr-width @color;
+    }
+    &:after {
+      right: calc(-((35 * @height) / 100));
+      border-top: solid @bdr-width @color;
+      border-right: solid @bdr-width @color;
+    }
+  }
+  &:hover, &:active, &:focus {
+    .hex-span {
+      border-top-color: @hover-color;
+      border-bottom-color: @hover-color;
+      color: @hover-color;
+      &:before {
+        border-bottom-color: @hover-color;
+        border-left-color: @hover-color;
+      }
+      &:after {
+        border-top-color: @hover-color;
+        border-right-color: @hover-color;
+      }
+    }
+  }
+}
+
+
+.social-buttons {
+  &--no-titles {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .social-block {
+    &__hexagon {
+      // assigns property/value to social buttons borders on regular state
+      .soc-icon-border-styler(@propertyA, @propertyB, @color){
+      	a{
+          position: relative;
+          height: 38px;
+          padding-left: 11px;
+          padding-right: 11px;
+
+          &:before {
+            left: 0px;
+            border-right-width: 11px;
+            border-right-style: solid;
+            @{propertyA}: @color;
+          }
+          &:after {
+            left: 33px; right: -11px;
+            border-left-width: 11px;
+            border-left-style: solid;
+            @{propertyB}: @color;
+          }
+          &:before, &:after {
+            .transition(all .2s ease-in-out);
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0; height: 0;
+            border-top: 19px solid transparent;
+            border-bottom: 19px solid transparent;
+          }
+
+      		& when (@color = default){
+      			.soc-brand-border-colors(@propertyA, @propertyB);
+      		}
+      	}
+      }
+      // assigns property/value to social buttons borders on hover state
+      .soc-icon-border-styler-hover(@propertyA, @propertyB, @color){
+      	a{
+      		&:hover, &:active, &:focus {
+            &:before { @{propertyA}: @color; }
+            &:after { @{propertyB}: @color; }
+
+      			& when (@color = default){
+      				.soc-brand-border-colors(@propertyA, @propertyB);
+      			}
+      		}
+      	}
+      }
+      // assigns social network's default color to the @propertyA & @propertyB parameteries
+      .soc-brand-border-colors(@propertyA, @propertyB) {
+      	&.social-facebook {
+          &:before { @{propertyA}: @fb-color; }
+          &:after { @{propertyB}: @fb-color; }
+        }
+      	&.social-twitter {
+          &:before { @{propertyA}: @tw-color; }
+          &:after { @{propertyB}: @tw-color; }
+        }
+      	&.social-instagram {
+          &:before { @{propertyA}: @in-color; }
+          &:after { @{propertyB}: @in-color; }
+        }
+      	&.social-google {
+          &:before { @{propertyA}: @gp-color; }
+          &:after { @{propertyB}: @gp-color; }
+        }
+      	&.social-youtube {
+          &:before { @{propertyA}: @yt-color; }
+          &:after { @{propertyB}: @yt-color; }
+        }
+      	&.social-pinterest {
+          &:before { @{propertyA}: @pin-color; }
+          &:after { @{propertyB}: @pin-color; }
+        }
+      	&.social-rss {
+          &:before { @{propertyA}: @rss-color; }
+          &:after { @{propertyB}: @rss-color; }
+        }
+      }
+
+      // (shape, dimension)
+      .soc-icon-sizer(square, 38px);
+
+      li {
+        padding-left: 0;
+
+        &:nth-child(n+2) {
+          padding-left: 48px;
+        }
+
+        a {
+          .fa, .im {
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            width: 22px;
+            font-size: 14px;
+            border-radius: 0px;
+          }
+        }
+      }
+
+      &--titles {
+      	// params ( css property, value)
+      	.soc-icon-styler(color, @white);
+      	.soc-icon-styler(background-color, default);
+
+      	.soc-icon-styler-hover(color, default);
+      	.soc-icon-styler-hover(background-color, @white);
+
+        .soc-icon-border-styler(border-right-color, border-left-color, default);
+      	.soc-icon-border-styler-hover(border-right-color, border-left-color, @white);
+
+      	li {
+      		a {
+            .social-title {
+              .transition(all .2s ease-in-out);
+              display: inline-block;
+              padding-left: 28px;
+              color: @internal-primary-text;
+              font-weight: bold;
+            }
+            &:hover, &:active, &:focus {
+              &.social-facebook {
+                .social-title { color: @fb-color; }
+              }
+              &.social-twitter {
+                .social-title { color: @tw-color; }
+              }
+              &.social-instagram {
+                .social-title { color: @in-color; }
+              }
+              &.social-google {
+                .social-title { color: @gp-color; }
+              }
+              &.social-youtube {
+                .social-title { color: @yt-color; }
+              }
+              &.social-pinterest {
+                .social-title { color: @pin-color; }
+              }
+            }
+      		}
+      	}
+      }
+      &--no-titles {
+        // params ( css property, value)
+        .soc-icon-styler(color, default);
+        .soc-icon-styler(background-color, @white);
+
+        .soc-icon-styler-hover(color, @white);
+        .soc-icon-styler-hover(background-color, default);
+
+        .soc-icon-border-styler(border-right-color, border-left-color, @white);
+        .soc-icon-border-styler-hover(border-right-color, border-left-color, default);
+      }
+    }
+  }
+}
+
+.component-row--links {
+  margin-bottom: 40px;
+
+  .hex-shape-link {
+    // parameters: bg color, color: (border & icon), border width, width size, height size, hover color, icon font size
+    .hexagon-shape(transparent; @white; 1px; 34px; 60px; @brand-primary; 18px);
+  }
+  .hex-shape-link--larger {
+    // parameters: bg color, color: (border & icon), border width, width size, height size, hover color, icon font size
+    .hexagon-shape(transparent; @white; 2px; 58px; 66px; @brand-primary; 18px);
+    margin-left: 20px;
+  }
+  .hex-shape-link--solid {
+    // parameters: bg color, color: (border & icon), border width, width size, height size, hover color, icon font size
+    .hexagon-shape(@brand-primary; @white; 1px; 34px; 60px; @brand-secondary; 18px);
+    margin-left: 20px;
+  }
+  .hex-shape-link--largerer {
+    // parameters: bg color, color: (border & icon), border width, width size, height size, hover color, icon font size
+    .hexagon-shape(transparent; @white; 2px; 200px; 300px; @brand-primary; 80px);
+    margin-left: 20px;
+  }
+  .hex-shape-link--smaller {
+    // parameters: bg color, color: (border & icon), border width, width size, height size, hover color, icon font size
+    .hexagon-shape(transparent; @white; 1px; 28px; 48px; @brand-primary; 18px);
+    margin-left: 20px;
+  }
+}
+
+.octagonWrap {
+    width:200px;
+    height:200px;
+    position: relative;
+    overflow: hidden;
+
+    .octagon {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      overflow: hidden;
+      transform: rotate(45deg);
+      background: transparent;
+      border: 3px solid red;
+
+      &:before {
+        position: absolute;
+        /* There needs to be a negative value here to cancel
+        * out the width of the border. It's currently -3px,
+        * but if the border were 5px, then it'd be -5px.
+        */
+        top: -3px; right: -3px; bottom: -3px; left: -3px;
+        transform: rotate(45deg);
+        content: '';
+        border: inherit;
+      }
+    }
+}
+
+.component-row--shapes {
+
+  .hexagon {
+    position: relative;
+    width: 173.21px;
+    height: 300px;
+    background-color: transparent;
+    margin: 0 86.60px;
+    border-top: solid 2px #333333;
+    border-bottom: solid 2px #333333;
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      width: 212.13px;
+      height: 212.13px;
+      -webkit-transform: scaleX(.5774) rotate(45deg);
+      -ms-transform: scaleX(.5774) rotate(45deg);
+      transform: scaleX(.5774) rotate(45deg);
+      background-color: inherit;
+      // left: 41.9340px;
+      top: 42px;
+    }
+
+    &:before {
+      // top: -106.0660px;
+      // border-top: solid 2.8284px #333333;
+      // border-right: solid 2.8284px #333333;
+      left: -106px;
+      border-bottom: solid 2.8284px #333;
+      border-left: solid 2.8284px #333;
+    }
+    &:after {
+      // bottom: -106.0660px;
+      // border-bottom: solid 2.8284px #333333;
+      // border-left: solid 2.8284px #333333;
+      right: -106px;
+      border-top: solid 2.8284px #333;
+      border-right: solid 2.8284px #333;
+    }
+  }
+  .hexagon-shape {
+    position: relative;
+    width: 34px;
+    height: 60px;
+    background-color: transparent;
+    margin: 0 86.60px;
+    border-top: solid 2px #333333;
+    border-bottom: solid 2px #333333;
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      width: 212.13px;
+      height: 212.13px;
+      -webkit-transform: scaleX(.5774) rotate(45deg);
+      -ms-transform: scaleX(.5774) rotate(45deg);
+      transform: scaleX(.5774) rotate(45deg);
+      background-color: inherit;
+      // left: 41.9340px;
+      top: 42px;
+    }
+
+    &:before {
+      // top: -106.0660px;
+      // border-top: solid 2.8284px #333333;
+      // border-right: solid 2.8284px #333333;
+      left: -106px;
+      border-bottom: solid 2.8284px #333;
+      border-left: solid 2.8284px #333;
+    }
+    &:after {
+      // bottom: -106.0660px;
+      // border-bottom: solid 2.8284px #333333;
+      // border-left: solid 2.8284px #333333;
+      right: -106px;
+      border-top: solid 2.8284px #333;
+      border-right: solid 2.8284px #333;
+    }
+  }
+}

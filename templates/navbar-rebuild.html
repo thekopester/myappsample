@@ -1,0 +1,137 @@
+<div class="dst-block">
+  [[Snippet.ContentHeader]]
+
+  <div class="dst-container">
+    <h4>Hamburger menu button in touch screen devices, working via :target pseudo class, to toggle dropdown menu</h4>
+    <nav id="secondary-site-nav" class="menu-nav" aria-label="Main Navigation Menu">
+      <div class="menu-nav__toggle-btn">
+        <!-- <button id="menuToggle" class="menu-btn collapsed" type="button" aria-label="Toggle Navigation Menu">
+  				<span class="sr-only">Toggle Navigation Menu</span>
+  				<span class="menu-btn__burger-bar"></span>
+  			</button> -->
+        <a href="#secondary-site-nav" id="main-menu-open" class="menu-btn-toggle menu-btn-toggle-open" aria-label="Open Navigation Menu">
+  				<span class="sr-only">Open Navigation Menu</span>
+  				<span class="menu-btn-toggle__burger-bar"></span>
+  			</a>
+        <a href="#main-menu-open" id="main-menu-close" class="menu-btn-toggle menu-btn-toggle-close" aria-label="Close Navigation Menu">
+  				<span class="sr-only">Close Navigation Menu</span>
+  				<span class="menu-btn-toggle__burger-bar"></span>
+  			</a>
+      </div>
+  		<div id="main-menu" class="menu-nav__row">
+  			<ul class="menu menu--primary" aria-label="Main Navigation Menu">
+  				<li><a href="/" title="<%=TXT_DEALERSHIP_NAME%> Home">Home</a></li>
+          <li class="menu__dropdown">
+  					<a class="sub-menu--toggle" href="/inventory/v1/" title="<%=TXT_SEO_VEH_TYPES%> for sale in <%=TXT_SEO_LOCATION%>">Showroom</a>
+  					<ul class="sub-menu">
+  						<li><a href="/inventory/v1/" title="<%=TXT_SEO_VEH_TYPES%> for sale in <%=TXT_SEO_LOCATION%>">Showroom</a></li>
+  						<li class="menu__dropdown">
+                <a class="sub-menu--toggle" href="/<%=TXT_SEF_URL_VEH_TYPES%>for-sale--xAllInventory" title="<%=TXT_SEO_VEH_TYPES%> for sale in <%=TXT_SEO_LOCATION%>">All Inventory</a>
+                <ul class="sub-menu">
+                  <li><a href="/new-<%=TXT_SEF_URL_VEH_TYPES%>for-sale--xNewInventory" title="New <%=TXT_SEO_VEH_TYPES%> for sale in <%=TXT_SEO_LOCATION%>">New Inventory</a></li>
+                  <li><a href="/used-<%=TXT_SEF_URL_VEH_TYPES%>for-sale--xPreOwnedInventory" title="Used <%=TXT_SEO_VEH_TYPES%> for sale in <%=TXT_SEO_LOCATION%>">Pre-Owned Inventory</a></li>
+                </ul>
+              </li>
+  						<li><a href="/showroom/harley-davidson" title="Harley-Davidson&reg; Showroom in <%=TXT_SEO_LOCATION%>">Harley-Davidson&reg; Showroom</a></li>
+  						<li><a href="/price-quote-<%=TXT_SEF_URL_VEH_TYPES%>dealership--xget_quote" title="Get a Quote in <%=TXT_SEO_LOCATION%>">Get A Quote</a></li>
+  						<li><a href="/credit-financing-<%=TXT_SEF_URL_VEH_TYPES%>dealership--financing" title="Financing in <%=TXT_SEO_LOCATION%>">Finance</a></li>
+  						<li><a href="/trade-in-value-<%=TXT_SEF_URL_VEH_TYPES%>dealership--xtrade_value" title="Trade-In Value in <%=TXT_SEO_LOCATION%>">Value Your Trade</a></li>
+  						<li><a href="/test-ride-<%=TXT_SEF_URL_VEH_TYPES%>dealership--xsched_ride" title="Test Rides in <%=TXT_SEO_LOCATION%>">Schedule A Test Ride</a></li>
+  						<li><a href="/contact-email-<%=TXT_SEF_URL_VEH_TYPES%>dealership--xcontact" title="Contact <%=TXT_DEALERSHIP_NAME%> in <%=TXT_SEO_LOCATION%>">Contact Us</a></li>
+  					</ul>
+  				</li>
+  				<li><a href="/service-repair-<%=TXT_SEF_URL_VEH_TYPES%>dealership--service" title="Service in <%=TXT_SEO_LOCATION%>">Service Department</a></li>
+          <li class="menu__dropdown">
+  					<a class="sub-menu--toggle" href="/check-out-my--projects" title="<%=TXT_DEALERSHIP_NAME%> Projects in <%=TXT_SEO_LOCATION%>">Projects</a>
+  					<ul class="sub-menu">
+  						<li><a href="/check-out-my--projects" title="<%=TXT_DEALERSHIP_NAME%> Projects in <%=TXT_SEO_LOCATION%>">Projects</a></li>
+  						<li><a href="/youtube-playlist--video-gallery" title="Video Gallery in <%=TXT_SEO_LOCATION%>">Video Gallery</a></li>
+  						<li><a href="/follow-instructions--newsletter-signup-doc" title="Instructions on Setting up Quick Newsletter Signup form">Quick Newsletter Signup Form</a></li>
+  						<li><a href="/how-to--mega-navs" title="Mega Nav Library Components">Mega Navs</a></li>
+  						<li><a href="/how-to--dealer-locator" title="Dealer Locator">Dealer Locator</a></li>
+  					</ul>
+  				</li>
+  				<li><a href="/events-calendar-<%=TXT_SEF_URL_VEH_TYPES%>dealership--xcalendar" title="Events Calendar for <%=TXT_DEALERSHIP_NAME%> in <%=TXT_SEO_LOCATION%>">Event Calendar</a></li>
+  				<li><a href="/contact-email-<%=TXT_SEF_URL_VEH_TYPES%>dealership--xcontact" title="Contact <%=TXT_DEALERSHIP_NAME%> in <%=TXT_SEO_LOCATION%>">Contact Us</a></li>
+  			</ul>
+  		</div>
+  	</nav>
+  </div>
+
+  <div class="dst-content">
+    <br><br>
+    <h3>Default HTML/CSS code for Bootstrapless Navbar Menu</h3>
+    <section>
+      <h4>Code Notes</h4>
+      <ul class="list-instructions">
+        <li>This is just a starting point, for a "Bootstrapless" navigation menu.</li>
+        <li>HTML gist is the navbar code. When setting up a dropdown menu, just remember to add the correct class attributes.</li>
+        <li>JS gist is barebone script, to toggle the menu in mobile and handheld devices but needs work to perfect toggling sub menu dropdowns.</li>
+        <li>LESS gists, the first "navigation-menu.less" gist, references all the mixins (located in "resp-nav-styler.less" gist), for this menu version.</li>
+      </ul>
+      <div class="library-footer">
+          <button class="collapsed collapse-button collapse-button--view-code" type="button" data-toggle="collapse" data-target="#collapseCode" aria-expanded="false" aria-controls="collapseCode">
+              <span>Code</span>
+          </button>
+          <div class="collapse" id="collapseCode">
+              <div class="collapse-content">
+                <script src="https://gist.github.com/dsfed/7c9e20fcd6fc86d8bb598e22031a1a45.js"></script>
+              </div>
+          </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // var hashLinks = document.querySelectorAll("a[href^='#']");
+  var hashLinks = $('a.menu-btn-toggle');
+  [].forEach.call(hashLinks, function (link) {
+    link.addEventListener("click", function (event) {
+      event.preventDefault();
+      history.pushState({}, "", link.href);
+
+      // Update the URL again with the same hash, then go back
+      history.pushState({}, "", link.href);
+      history.back();
+    });
+  });
+</script>
+
+<!-- <script type="text/javascript">
+  // // reference:
+  // // https://www.freecodecamp.org/news/how-to-build-a-responsive-navbar-with-a-toggle-menu-using-flexbox-3438e1d08783/
+  // function classToggle() {
+  //   const navs = document.querySelectorAll('.menu')
+  //
+  //   navs.forEach(nav => nav.classList.toggle('show-menu'));
+  // }
+  //
+  // document.querySelector('#menuToggle').addEventListener('click', classToggle);
+
+  // // reference:
+  // // https://webdesign.tutsplus.com/tutorials/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535
+  // $(function() {
+  //   $("#menuToggle").on("click", function() {
+  //       if ($(".menu li").hasClass("active")) {
+  //           $(".menu li").removeClass("active");
+  //       } else {
+  //           $(".menu li").addClass("active");
+  //       }
+  //   });
+  // });
+
+  $("#menuToggle").click(function(){
+    // $(this).parents('#primary-site-nav').find('.menu-nav__row').toggleClass('show-menu');
+    $(this).toggleClass('collapsed');
+    $('.menu').slideToggle('slow');
+  });
+
+  // if ( is_touch_device() ) {
+		$('.sub-menu--toggle').click(function(e) {
+      e.preventDefault();
+			// $(this).next('.sub-menu').toggleClass('show-sub-menu');
+			$(this).parent('.menu__dropdown').toggleClass('show-sub-menu');
+		});
+	// }
+</script> -->

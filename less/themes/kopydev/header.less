@@ -1,0 +1,314 @@
+// last updated 3/6/18
+
+#header {
+	background-color: @bg-body;
+	position: relative;
+	z-index: 3;
+	@media (min-width: @screen-sm-min) {
+	  background-image: url("@{img-path}header-graphic.jpg");
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: auto 80%;
+	}
+}
+
+.dark-light-bttn {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+
+	&.dark {
+		.fa.fa-moon-o { display: none; }
+	}
+	&.light {
+		.fa.fa-sun-o { display: none; }
+	}
+}
+
+.header-container {
+	.container;
+	position: relative;
+	z-index: 1;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	color: @white;
+	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+	  .flex-align-items(flex-start);
+	}
+
+	a {
+		color: @index-secondary;
+		&:hover, &:active, &:focus {
+			color: @white;
+		}
+	}
+
+	// logo position (left, center, or right); flexbox align-items
+	.header-layout(left; center);
+	@media (max-width: @screen-sm-max) {
+	  .flex-direction(column);
+	}
+	@media (max-width: @screen-xs-max) {
+	  .flex-direction(row);
+	}
+}
+
+.header-brand {
+	// @media (max-width: @screen-xs-max) {
+	//   margin-left: auto;
+	// }
+	@media (min-width: @screen-sm-min) {
+	  margin-left: 280px;
+	}
+	@media (min-width: @screen-md-min) {
+	  margin-left: 15%;
+	}
+	a {
+		display: inline-block;
+		position: relative;
+		z-index: 2;
+
+		// if need to overlap navbar
+		// margin-bottom: -50px;
+
+		img {
+			max-width: 280px;
+			@media (max-width: 340px) {
+			  max-width: 240px;
+			}
+			@media (min-width: @screen-sm-min) {
+				max-width: 400px;
+			}
+			@media (min-width: @screen-md-min) {
+			  max-width: 480px;
+			}
+			@media (min-width: @screen-lg-min) {
+			  max-width: none;
+			}
+		}
+	}
+}
+
+.header-contact {
+	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+	  margin-left: 280px;
+	}
+	@media (min-width: @screen-sm-min) {
+		margin-top: 10px;
+	}
+}
+
+.header-phone {
+
+}
+.header-phone__link {
+	@media (max-width: @screen-xs-max) {
+	  display: block;
+	}
+	.fa {
+		@media (max-width: @screen-xs-max) {
+		  width: 30px; height: 30px;
+			line-height: 30px;
+			text-align: center;
+			font-size: 24px;
+		}
+	}
+	> span {
+		.hidden-xs;
+	}
+}
+
+.header-address {
+	> span {
+		.hidden-xs;
+		@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+		  display: block;
+		}
+	}
+}
+.header-address__link {
+	@media (max-width: @screen-xs-max) {
+		display: block;
+		margin-top: 10px;
+	}
+	.fa {
+		@media (max-width: @screen-xs-max) {
+		  width: 30px; height: 30px;
+			line-height: 30px;
+			text-align: center;
+			font-size: 24px;
+		}
+		@media (min-width: @screen-sm-min) {
+		  display: none;
+		}
+	}
+	> span {
+		.hidden-xs;
+	}
+	@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+		display: block;
+	}
+}
+
+.header-social {
+	// use styler in main.less
+	// only header-specific overrides here\
+	.hidden-xs;
+
+	@media (min-width: @screen-lg-min) {
+		margin-bottom: 10px;
+	}
+}
+
+.header-search {
+	@media (max-width: @screen-md-max) {
+	  position: absolute;
+		bottom: -37px;
+		left: 15px;
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////
+/////////////////////  	N A V B A R 	////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+// call stylers
+.navbar-styler;
+
+// param to position self
+.hamburger-styler(flex-end);
+
+// nav open above
+@grid-float-breakpoint: @screen-md-min;
+
+.navbar-height(50px);
+
+// navbar size: full or contained
+@nav-size: full;
+
+// COLORS & BURGER--------------------------------------------------------------
+// THESE ARE SIMPLY PLACEHOLDERS - USE COLORS THAT MAKE SENSE!
+// header-level styles
+@nav-bg: @index-primary;
+@nav-bg-hover: @index-secondary;
+@nav-text: contrast(@nav-bg, @white, @black);
+@nav-text-hover: contrast(@nav-bg-hover, @white, @black);
+
+// dropdown styles
+@nav-dropdown-bg: contrast(@nav-bg-hover, darken(@nav-bg-hover, 10%), lighten(@nav-bg-hover, 10%));
+@nav-dropdown-text: contrast(@nav-dropdown-bg, @white, @black);
+@nav-dropdown-bg-hover: contrast(@nav-dropdown-bg, darken(@nav-dropdown-bg, 10%), lighten(@nav-dropdown-bg, 10%));
+@nav-dropdown-text-hover: contrast(@nav-dropdown-bg-hover, @white, @black);
+
+// hamburger styles
+@burger-bg: transparent;
+@burger-bg-active: transparent;
+@burger-border-width: 1px;
+@burger-color: @index-secondary;
+@burger-color-active: contrast(@burger-color, darken(@burger-color, 20%), lighten(@burger-color, 20%));
+
+@burger-bar-width: 30px;
+@burger-bar-height: 4px;
+@burger-bar-spacing: 4px;
+
+@burger-padding-vert: 10px;
+@burger-padding-horiz: 10px;
+
+// mixins to override variables for specific viewports
+// uncomment, set needed variables only (remove others), and wrap mixin in media query
+
+// @media (min-width: @screen-sm-min) {
+// 	.nav-headers-override(
+// 		@nav-bg-override: @index-primary;
+// 		@nav-bg-hover-override: @index-secondary;
+// 		@nav-text-override: @index-primary-text;
+// 		@nav-text-hover-override: @index-secondary-text
+// 	);
+// }
+
+// @media (min-width: @screen-sm-min) {
+// 	.nav-dropdowns-override(
+// 		@nav-dropdown-bg-override: @index-primary;
+// 		@nav-dropdown-text-override: @index-primary-text;
+// 		@nav-dropdown-bg-hover-override: @index-secondary;
+// 		@nav-dropdown-text-hover-override: @index-secondary-text
+// 	);
+// }
+
+// @media (min-width: @screen-sm-min) {
+// 	.hamburger-override(
+// 		@burger-color-override: @index-primary;
+// 		@burger-bg-override: transparent;
+// 		@burger-color-active-override: @index-secondary;
+// 		@burger-bg-active-override: transparent;
+// 		@burger-border-width-override: 1px;
+// 		@burger-bar-width-override: 22px;
+// 		@burger-bar-height-override: 2px;
+// 		@burger-bar-spacing-override: 4px;
+// 		@burger-padding-vert-override: 10px;
+// 		@burger-padding-horiz-override: 10px;
+// 	);
+// }
+
+// DECORATIONS ----------------------------------------------------------------
+
+// styles navbar top level border height, width, style, color
+.navbar-border-styler(50%, 1px, dotted, @white);
+
+// styles navbar dropdown decoration
+// params: font-awesome icon, font-size, default color, hover color, position from right
+.navbar-dropdown-decoration-styler("\f0d7", 10px, @nav-text, @nav-text-hover, 5px);
+
+// adds decorative underline to navbar headers on hover/open
+// params: line height, position, separation, color, breakpoint:@grid-float-breakpoint
+// .navbar-hover-underline(3px; bottom; 15px; @nav-text-hover);
+//
+// LAYOUT TWEAKS ---------------------------------------------------------------
+//
+// absolutely positions the hamburger menu - use only if really needed!
+// IT IS PREFERABLE TO MOVE .NAVBAR-HEADER INTO .HEADER-CONTAINER AND LET IT FLEX WITH OTHER FLEX-ITEMS
+// params: max view width, .navbar-toggle {top}, .navbar-toggle {right}, .navbar-toggle {left}
+// .absolutely-hamburger(@grid-float-breakpoint - 1, -@navbar-height, 15px, auto);
+
+// keeps right-most dropdowns from creating horizontal scrollbar by swinging open to the left
+// params: number of menus affected, max viewport width when turned on (defaults to @screen-sm-max if empty) {
+.menu-dropdowns-to-left(2, 1900px);
+
+#main-nav {
+	.navbar-nav {
+		@media (min-width: @grid-float-breakpoint) {
+			text-align: right; //navbar alignment
+		}
+		>li {
+			>a {
+				//navbar headers
+			}
+			&.dropdown {
+				>a {
+					@media (min-width: @grid-float-breakpoint) {
+						padding-right: 25px;
+
+						&:after {
+							right: 10px;
+						}
+					}
+				}
+			}
+			.dropdown-menu {
+				> li {
+					> a {
+						//dropdown items
+					}
+				}
+			}
+		}
+	}
+
+	.navbar-header {
+		.navbar-toggle { //hamburger
+			.icon-bar {
+			}
+		}
+	}
+}
